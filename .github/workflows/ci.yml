@@ -1,0 +1,55 @@
+name: CI 🧪
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+    # Skip if commit message contains 'skip-ci'
+    if: "!contains(github.event.head_commit.message, 'skip-ci')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch.
+          # 0 indicates all history for all branches and tags. (Default: 1)
+          fetch-depth: 0
+
+      - name: Get SDK
+        shell: pwsh
+        # Get SDK version from global.json
+        run: |
+          $global = ConvertFrom-Json (Get-Content global.json -Raw)
+          $sdk = $global.sdk.version
+          Write-Host "SDK version: $sdk"
+          echo "SDK=$sdk" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.SDK }}
+
+      - name: Build and Test
+        env:
+          DOTNET_CLI_TELEMETRY_OPTOUT: true
+          DOTNET_NOLOGO: 1
+        shell: pwsh
+        run: ./scripts/build.ps1
+
+      - name: Push to NuGet
+        env:
+          NUGET_API_URL: https://api.nuget.org/v3/index.json
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        shell: pwsh
+        run: ./scripts/push.ps1
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: .artifacts/**/*

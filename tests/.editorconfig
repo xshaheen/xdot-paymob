@@ -1,0 +1,13 @@
+[*.{cs, csx, cake, vb, vbx, razor, cpp, c}]
+
+# Identifiers should not contain underscores
+dotnet_diagnostic.CA1707.severity = none
+
+# Naming rule violation
+dotnet_diagnostic.IDE1006.severity = none
+
+# VSTHRD200: Use "Async" suffix for async methods
+dotnet_diagnostic.VSTHRD200.severity = none
+
+# CA2012: Use ValueTasks correctly
+dotnet_diagnostic.CA2012.severity = none

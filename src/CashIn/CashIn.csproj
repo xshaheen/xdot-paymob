@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
+    <RootNamespace>X.Paymob.CashIn</RootNamespace>
+    <AssemblyName>Xdot.Paymob.CashIn</AssemblyName>
+    <Title>Xdot.Paymob.CashIn</Title>
+    <PackageId>Xdot.Paymob.CashIn</PackageId>
+    <Description>An SDK to help you integrate with the Paymob’s payment gateway.</Description>
+    <PackageTags>xdot,paymob,accept,sdk,payment,cashin</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.GuardClauses" Version="3.2.0" />
+    <PackageReference Include="Flurl" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+    <PackageReference Include="IsExternalInit" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>CashIn.Tests.Unit</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ClockBroker.cs">
+      <DependentUpon>IClockBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInAuthenticator.cs">
+      <DependentUpon>IPaymobCashInAuthenticator.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBrocker.Payment.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBrocker.VoidTransaction.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBroker.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBroker.CreateOrder.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBroker.OrderQueries.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBroker.RequestPaymentKey.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBroker.TransactionsQueries.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PaymobCashInBroker.ValidateHmac.cs">
+      <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

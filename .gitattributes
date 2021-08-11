@@ -1,0 +1,25 @@
+# Automatically normalize line endings on check-in
+* text=auto encoding=UTF-8
+
+# Set file behavior to: treat as text
+*.cmd       text
+*.ps1       text
+*.config    text
+*.cs        text
+*.csproj    text
+*.json      text
+*.md        text
+*.props     text
+*.ps1       text
+*.resx      text
+*.shproj    text
+*.sln       text       eol=crlf
+*.targets   text
+*.txt       text
+*.xlf       text
+*.xml       text
+*.xaml       text
+*.sh        text        eol=lf
+
+# Set file behavior to: treat as binary
+*.snk       binary

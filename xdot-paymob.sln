@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashIn", "src\CashIn\CashIn.csproj", "{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashIn.DependencyInjection", "src\CashIn.DependencyInjection\CashIn.DependencyInjection.csproj", "{F302B066-BEAB-49D4-AE44-426B48D677BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{50B0E935-53F5-4E0A-861C-E545A0D8E727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashIn.Tests.Unit", "tests\CashIn.Tests.Unit\CashIn.Tests.Unit.csproj", "{96252974-961F-42F2-A9E1-17B5D97B3FE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{EBC982E8-D911-4458-8731-72CE82200153}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{832A7620-FA08-4E2E-9B41-3180C25F8578}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+	.gitattributes = .gitattributes
+	.gitignore = .gitignore
+	Directory.Build.props = Directory.Build.props
+	NuGet.config = NuGet.config
+	readme.md = readme.md
+	LICENSE.txt = LICENSE.txt
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F302B066-BEAB-49D4-AE44-426B48D677BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F302B066-BEAB-49D4-AE44-426B48D677BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F302B066-BEAB-49D4-AE44-426B48D677BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F302B066-BEAB-49D4-AE44-426B48D677BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96252974-961F-42F2-A9E1-17B5D97B3FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96252974-961F-42F2-A9E1-17B5D97B3FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96252974-961F-42F2-A9E1-17B5D97B3FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96252974-961F-42F2-A9E1-17B5D97B3FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96252974-961F-42F2-A9E1-17B5D97B3FE3} = {50B0E935-53F5-4E0A-861C-E545A0D8E727}
+		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D} = {EBC982E8-D911-4458-8731-72CE82200153}
+		{F302B066-BEAB-49D4-AE44-426B48D677BA} = {EBC982E8-D911-4458-8731-72CE82200153}
+	EndGlobalSection
+EndGlobal
