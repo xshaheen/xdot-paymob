@@ -9,10 +9,8 @@ namespace X.Paymob.CashIn {
         public long TicksNow =>
 #if NETCOREAPP3_0_OR_GREATER
             Environment.TickCount64;
-#elif NETSTANDARD2_0
-            Environment.TickCount;
 #else
-#error This code block does not match csproj TargetFrameworks list
+            Environment.TickCount;
 #endif
     }
 }
