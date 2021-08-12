@@ -2,20 +2,23 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
+using System.Globalization;
 using System.Text.Json.Serialization;
-using JetBrains.Annotations;
 
 namespace X.Paymob.CashIn.Models.Payment {
-    [PublicAPI]
-    public class CashInPaymentKeyInternalRequest {
-        public CashInPaymentKeyInternalRequest(string authToken, CashInPaymentKeyRequest request) {
+    internal class CashInPaymentKeyInternalRequest {
+        public CashInPaymentKeyInternalRequest(
+            CashInPaymentKeyRequest request,
+            string authToken,
+            int defaultExpiration
+        ) {
             AuthToken = authToken;
             OrderId = request.OrderId;
             IntegrationId = request.IntegrationId;
-            AmountCents = request.AmountCents;
-            Expiration = request.Expiration;
+            AmountCents = request.AmountCents.ToString(CultureInfo.InvariantCulture);
+            Expiration = request.Expiration ?? defaultExpiration;
             Currency = request.Currency;
-            LockOrderWhenPaid = request.LockOrderWhenPaid;
+            LockOrderWhenPaid = request.LockOrderWhenPaid ? "true" : "false";
             BillingData = request.BillingData;
         }
 

@@ -2,12 +2,9 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System.Globalization;
 using Ardalis.GuardClauses;
-using JetBrains.Annotations;
 
 namespace X.Paymob.CashIn.Models.Payment {
-    [PublicAPI]
     public class CashInPaymentKeyRequest {
         public CashInPaymentKeyRequest(
             int integrationId,
@@ -15,21 +12,25 @@ namespace X.Paymob.CashIn.Models.Payment {
             CashInBillingData billingData,
             int amountCents,
             string currency = "EGP",
-            int expiration = 3600,
-            bool lockOrderWhenPaid = true
+            bool lockOrderWhenPaid = true,
+            int? expiration = null
         ) {
+            if (expiration is not null) {
+                Guard.Against.NegativeOrZero(expiration.Value, nameof(expiration));
+            }
+
             Guard.Against.NegativeOrZero(orderId, nameof(orderId));
             Guard.Against.NegativeOrZero(integrationId, nameof(integrationId));
             Guard.Against.NegativeOrZero(amountCents, nameof(amountCents));
-            Guard.Against.NegativeOrZero(expiration, nameof(expiration));
             Guard.Against.NullOrEmpty(currency, nameof(currency));
+            Guard.Against.Null(billingData, nameof(billingData));
 
-            OrderId = orderId;
             IntegrationId = integrationId;
-            AmountCents = amountCents.ToString(CultureInfo.InvariantCulture);
-            Expiration = expiration;
+            OrderId = orderId;
+            AmountCents = amountCents;
             Currency = currency;
-            LockOrderWhenPaid = lockOrderWhenPaid ? "true" : "false";
+            Expiration = expiration;
+            LockOrderWhenPaid = lockOrderWhenPaid;
             BillingData = billingData;
         }
 
@@ -37,13 +38,13 @@ namespace X.Paymob.CashIn.Models.Payment {
 
         public int OrderId { get; }
 
-        public string AmountCents { get; }
-
-        public int Expiration { get; }
+        public int AmountCents { get; }
 
         public string Currency { get; }
 
-        public string LockOrderWhenPaid { get; }
+        public int? Expiration { get; }
+
+        public bool LockOrderWhenPaid { get; }
 
         public CashInBillingData BillingData { get; }
     }

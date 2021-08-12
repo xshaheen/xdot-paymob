@@ -15,7 +15,7 @@ namespace X.Paymob.CashIn {
         /// </summary>
         public async Task<CashInPaymentKeyResponse> RequestPaymentKeyAsync(CashInPaymentKeyRequest request) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
-            var req = new CashInPaymentKeyInternalRequest(authToken, request);
+            var req = new CashInPaymentKeyInternalRequest(request, authToken, _config.ExpirationPeriod);
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("acceptance/payment_keys", req);
             response.EnsureSuccessStatusCode();
             return (await response.Content.ReadFromJsonAsync<CashInPaymentKeyResponse>())!;
