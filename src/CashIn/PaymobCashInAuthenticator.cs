@@ -22,11 +22,12 @@ namespace X.Paymob.CashIn {
         public PaymobCashInAuthenticator(
             HttpClient httpClient,
             IClockBroker clockBroker,
-            IOptionsMonitor<CashInConfig> payInOptions
+            IOptionsMonitor<CashInConfig> options
         ) {
             _httpClient = httpClient;
             _clockBroker = clockBroker;
-            _options = payInOptions;
+            _options = options;
+            options.OnChange(_ => _InvalidateCache());
         }
 
         public async Task<CashInAuthenticationTokenResponse> RequestAuthenticationTokenAsync() {
@@ -51,6 +52,11 @@ namespace X.Paymob.CashIn {
         private void _Cache(string token) {
             _token = token;
             _createdAtTicks = _clockBroker.TicksNow;
+        }
+
+        private void _InvalidateCache() {
+            _token = null;
+            _createdAtTicks = null;
         }
     }
 }

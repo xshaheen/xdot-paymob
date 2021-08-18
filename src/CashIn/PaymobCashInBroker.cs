@@ -15,11 +15,11 @@ namespace X.Paymob.CashIn {
         public PaymobCashInBroker(
             HttpClient httpClient,
             IPaymobCashInAuthenticator authenticator,
-            IOptionsMonitor<CashInConfig> payInOptions
+            IOptionsMonitor<CashInConfig> options
         ) {
             _httpClient = httpClient;
             _authenticator = authenticator;
-            _config = payInOptions.CurrentValue;
+            _config = options.CurrentValue;
         }
     }
 }
