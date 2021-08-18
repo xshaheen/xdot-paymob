@@ -16,10 +16,6 @@ namespace X.Paymob.CashIn.Models {
         [Required]
         public string IframeBaseUrl { get; set; } = "https://accept.paymob.com/api/acceptance/iframes";
 
-        /// <summary>Iframe Id.</summary>
-        [Required]
-        public string IframeId { get; set; } = default!;
-
         /// <summary>
         /// The unique identifier for the merchant which used to authenticate requests calling
         /// any of the "Paymob Accept"'s API.

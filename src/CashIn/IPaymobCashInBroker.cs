@@ -11,8 +11,6 @@ using X.Paymob.CashIn.Models.Transactions;
 
 namespace X.Paymob.CashIn {
     public interface IPaymobCashInBroker {
-        [Pure] string CreateIframeSrc(string token);
-
         /// <summary>Create order. Order is a logical container for a transaction(s).</summary>
         /// <exception cref="HttpRequestException"></exception>
         [Pure] Task<CashInCreateOrderResponse> CreateOrderAsync(CashInCreateOrderRequest request);
@@ -53,5 +51,10 @@ namespace X.Paymob.CashIn {
         /// <param name="hmac">Received HMAC.</param>
         /// <returns>True if is valid, otherwise return false.</returns>
         [Pure] bool Validate(string concatenatedString, string hmac);
+
+        /// <summary>Create iframe src url.</summary>
+        /// <param name="iframeId">Iframe Id.</param>
+        /// <param name="token">Payment token.</param>
+        [Pure] string CreateIframeSrc(string iframeId, string token);
     }
 }

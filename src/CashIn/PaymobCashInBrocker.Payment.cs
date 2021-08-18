@@ -11,9 +11,9 @@ using X.Paymob.CashIn.Models.Payment;
 
 namespace X.Paymob.CashIn {
     public partial class PaymobCashInBroker {
-        public string CreateIframeSrc(string token) {
+        public string CreateIframeSrc(string iframeId, string token) {
             return Url
-                .Combine(_config.IframeBaseUrl, _config.IframeId)
+                .Combine(_config.IframeBaseUrl, iframeId)
                 .SetQueryParams(new { payment_token = token });
         }
 
