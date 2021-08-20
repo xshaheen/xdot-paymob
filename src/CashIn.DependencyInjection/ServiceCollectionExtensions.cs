@@ -58,7 +58,7 @@ namespace X.Paymob.CashIn {
             services.AddSingleton<IClockBroker, ClockBroker>();
 
             services
-                .AddScoped<IPaymobCashInAuthenticator, PaymobCashInAuthenticator>()
+                .AddSingleton<IPaymobCashInAuthenticator, PaymobCashInAuthenticator>()
                 .AddHttpClient<IPaymobCashInBroker, PaymobCashInBroker>(_ConfigureClient)
                 .AddTransientHttpErrorPolicy(retryPolicy ?? _ConfigurePolicy);
 
