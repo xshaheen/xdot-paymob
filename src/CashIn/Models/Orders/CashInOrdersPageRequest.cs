@@ -28,25 +28,22 @@ namespace X.Paymob.CashIn.Models.Orders {
         }
 
         public CashInOrdersPageRequest WithOrderId(string id) {
-            if (!string.IsNullOrWhiteSpace(id)) {
+            if (!string.IsNullOrWhiteSpace(id))
                 Query["order_id"] = id;
-            }
 
             return this;
         }
 
         public CashInOrdersPageRequest WithMerchantOrderId(string id) {
-            if (!string.IsNullOrWhiteSpace(id)) {
+            if (!string.IsNullOrWhiteSpace(id))
                 Query["merchant_order_id"] = id;
-            }
 
             return this;
         }
 
         public CashInOrdersPageRequest WithCurrency(string currency) {
-            if (!string.IsNullOrWhiteSpace(currency)) {
+            if (!string.IsNullOrWhiteSpace(currency))
                 Query["currency"] = currency;
-            }
 
             return this;
         }
@@ -69,13 +66,11 @@ namespace X.Paymob.CashIn.Models.Orders {
                 );
             }
 
-            if (from is not null) {
-                Query["amount_from"] = from.Value.ToString(CultureInfo.InvariantCulture);
-            }
+            if (from is not null)
+                Query["amount_from"] = @from.Value.ToString(CultureInfo.InvariantCulture);
 
-            if (to is not null) {
+            if (to is not null)
                 Query["amount_to"] = to.Value.ToString(CultureInfo.InvariantCulture);
-            }
 
             return this;
         }
@@ -88,31 +83,27 @@ namespace X.Paymob.CashIn.Models.Orders {
                 );
             }
 
-            if (from is not null) {
-                Query["paid_amount_from"] = from.Value.ToString(CultureInfo.InvariantCulture);
-            }
+            if (from is not null)
+                Query["paid_amount_from"] = @from.Value.ToString(CultureInfo.InvariantCulture);
 
-            if (to is not null) {
+            if (to is not null)
                 Query["paid_amount_to"] = to.Value.ToString(CultureInfo.InvariantCulture);
-            }
 
             return this;
         }
 
         /// <param name="origin">See: <see cref="CashInOrderApiSource"/></param>
         public CashInOrdersPageRequest WithApiSource(string origin) {
-            if (!string.IsNullOrWhiteSpace(origin)) {
+            if (!string.IsNullOrWhiteSpace(origin))
                 Query["api_source"] = origin;
-            }
 
             return this;
         }
 
         /// <param name="status">See: <see cref="CashInOrderStatuses"/></param>
         public CashInOrdersPageRequest WithStatus(string status) {
-            if (!string.IsNullOrWhiteSpace(status)) {
+            if (!string.IsNullOrWhiteSpace(status))
                 Query["status"] = status;
-            }
 
             return this;
         }

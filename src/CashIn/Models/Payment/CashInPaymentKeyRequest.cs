@@ -15,9 +15,8 @@ namespace X.Paymob.CashIn.Models.Payment {
             bool lockOrderWhenPaid = true,
             int? expiration = null
         ) {
-            if (expiration is not null) {
+            if (expiration is not null)
                 Guard.Against.NegativeOrZero(expiration.Value, nameof(expiration));
-            }
 
             Guard.Against.NegativeOrZero(orderId, nameof(orderId));
             Guard.Against.NegativeOrZero(integrationId, nameof(integrationId));

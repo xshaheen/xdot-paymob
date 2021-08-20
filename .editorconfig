@@ -1,6 +1,7 @@
 root = true
 
-## Core Options ##
+############ Core Options
+
 [*]
 charset = utf-8
 end_of_line = lf
@@ -11,7 +12,7 @@ tab_width = 2
 indent_style = space
 max_line_length = 120
 
-## File Extension Settings ##
+############ File Extension Settings
 
 # min files don't reformatting
 [*.min.*]
@@ -37,16 +38,12 @@ trim_trailing_whitespace = false
 # .NET
 [*.{cs, csx, cake, vb, vbx}]
 
-## .NET Code Style Severities ##
-# https://docs.microsoft.com/dotnet/fundamentals/code-analysis/configuration-options#scope
-
-# Default Severity for all .NET Code Style rules below
-# dotnet_analyzer_diagnostic.severity = warnings
+############ .NET Code Style Severities
 
 # CA1716:Identifiers should not match keywords
 dotnet_diagnostic.CA1716.severity = suggestion
-# IDE0055: Fix formatting
-dotnet_diagnostic.IDE0055.severity = silent
+# CA2007: Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA2007.severity = none
 # CA1062: Validate arguments of public methods
 dotnet_diagnostic.CA1062.severity = none
 # CA1034: Nested types should not be visible
@@ -57,6 +54,69 @@ dotnet_diagnostic.CA1054.severity = none
 dotnet_diagnostic.CA1056.severity = none
 # CA1308: Normalize strings to uppercase
 dotnet_diagnostic.CA1308.severity = suggestion
+# CA1000: Do not declare static members on generic types
+dotnet_diagnostic.CA1000.severity = suggestion
+# CA1014: Mark assemblies with CLSCompliantAttribute
+dotnet_diagnostic.CA1014.severity = none
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = silent
+# CA1032: Implement standard exception constructors
+dotnet_diagnostic.CA1032.severity = suggestion
+# CA1040: Avoid empty interfaces
+dotnet_diagnostic.CA1040.severity = silent
+# CA1055: URI return values should not be strings
+dotnet_diagnostic.CA1055.severity = silent
+# CA1310: Specify StringComparison for correctness
+dotnet_diagnostic.CA1310.severity = suggestion
+# CA1307: Specify StringComparison for clarity
+dotnet_diagnostic.CA1307.severity = suggestion
+# CA1305: Specify IFormatProvider
+dotnet_diagnostic.CA1305.severity = suggestion
+# CA1304: Specify CultureInfo
+dotnet_diagnostic.CA1304.severity = suggestion
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = suggestion
+# CA1309: Use ordinal StringComparison
+dotnet_diagnostic.CA1309.severity = suggestion
+# CA1805: Do not initialize unnecessarily.
+dotnet_diagnostic.CA1805.severity = suggestion
+# CA1707: Identifiers should not contain underscores
+dotnet_diagnostic.CA1707.severity = warning
+# CA1708: Identifiers should differ by more than case
+dotnet_diagnostic.CA1708.severity = warning
+# CA1711: Identifiers should not have incorrect suffix
+dotnet_diagnostic.CA1711.severity = warning
+# CA1715: Identifiers should have correct prefix
+dotnet_diagnostic.CA1715.severity = warning
+# CA1712: Do not prefix enum values with type name
+dotnet_diagnostic.CA1712.severity = warning
+# CA1720: Identifiers should not contain type names
+dotnet_diagnostic.CA1720.severity = warning
+# CA1725: Parameter names should match base declaration
+dotnet_diagnostic.CA1725.severity = suggestion
+# CA2009: Do not call ToImmutableCollection on an ImmutableCollection value
+dotnet_diagnostic.CA2009.severity = warning
+# CA5350: Do Not Use Weak Cryptographic Algorithms
+dotnet_diagnostic.CA5350.severity = warning
+# CA5351 Do Not Use Broken Cryptographic Algorithms
+dotnet_diagnostic.CA5351.severity = warning
+# CA5359: Do not disable certificate validation
+dotnet_diagnostic.CA5359.severity = warning
+# CA5360: Do not call dangerous methods in deserialization
+dotnet_diagnostic.CA5360.severity = warning
+# CA5364: Do not use deprecated security protocols
+dotnet_diagnostic.CA5364.severity = warning
+# CA5379: Ensure key derivation function algorithm is sufficiently strong
+dotnet_diagnostic.CA5379.severity = warning
+# CA5384: Do not use digital signature algorithm (DSA)
+dotnet_diagnostic.CA5384.severity = warning
+# CA5385: Use Rivest–Shamir–Adleman (RSA) algorithm with sufficient key size
+dotnet_diagnostic.CA5385.severity = warning
+# IDE0055: Fix formatting
+dotnet_diagnostic.IDE0055.severity = silent
+
+############ Analyzers
+
 # AsyncFixer01: Unnecessary async/await usage
 dotnet_diagnostic.AsyncFixer01.severity = suggestion
 # AsyncFixer02: Long-running or blocking operations inside an async method
@@ -87,8 +147,6 @@ dotnet_diagnostic.AsyncifyVariable.severity = error
 dotnet_diagnostic.MA0004.severity = none
 # VSTHRD111: Use ConfigureAwait(bool)
 dotnet_diagnostic.VSTHRD111.severity = none
-# CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = none
 # MA0022: Return Task.FromResult instead of returning null
 dotnet_diagnostic.MA0022.severity = error
 # VSTHRD114: Avoid returning a null Task
@@ -106,47 +164,7 @@ dotnet_diagnostic.MA0080.severity = error
 # AsyncFixer05: Downcasting from a nested task to an outer task.
 dotnet_diagnostic.AsyncFixer05.severity = error
 
-dotnet_diagnostic.CA1000.severity = suggestion
-# CA1014: Mark assemblies with CLSCompliantAttribute
-dotnet_diagnostic.CA1014.severity = none
-# CA1031: Do not catch general exception types
-dotnet_diagnostic.CA1031.severity = silent
-# CA1032: Implement standard exception constructors
-dotnet_diagnostic.CA1032.severity = suggestion
-dotnet_diagnostic.CA1040.severity = silent
-dotnet_diagnostic.CA1055.severity = silent
-dotnet_diagnostic.CA1310.severity = suggestion
-dotnet_diagnostic.CA1307.severity = suggestion
-dotnet_diagnostic.CA1305.severity = suggestion
-dotnet_diagnostic.CA1304.severity = suggestion
-dotnet_diagnostic.CA1303.severity = suggestion
-dotnet_diagnostic.CA1707.severity = warning
-dotnet_diagnostic.CA1708.severity = warning
-dotnet_diagnostic.CA1711.severity = warning
-dotnet_diagnostic.CA1715.severity = warning
-dotnet_diagnostic.CA1712.severity = warning
-dotnet_diagnostic.CA1720.severity = warning
-dotnet_diagnostic.CA1725.severity = warning
-dotnet_diagnostic.CA2009.severity = warning
-dotnet_diagnostic.CA5350.severity = warning
-dotnet_diagnostic.CA5351.severity = warning
-dotnet_diagnostic.CA5359.severity = suggestion
-dotnet_diagnostic.CA5360.severity = suggestion
-dotnet_diagnostic.CA5364.severity = suggestion
-dotnet_diagnostic.CA5379.severity = warning
-dotnet_diagnostic.CA5384.severity = warning
-dotnet_diagnostic.CA5385.severity = warning
-dotnet_diagnostic.xUnit2019.severity = warning
-dotnet_diagnostic.CA1309.severity = suggestion
-dotnet_diagnostic.CA1805.severity = warning
-dotnet_diagnostic.IDE0004.severity = suggestion
-dotnet_diagnostic.IDE0050.severity = suggestion
-dotnet_diagnostic.IDE0041.severity = suggestion
-dotnet_diagnostic.IDE0039.severity = suggestion
-dotnet_diagnostic.IDE0120.severity = suggestion
-
-# .NET Languages Style Rules
-# https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/language-rules#net-style-rules
+############ .NET Languages Style Rules
 
 # "this." and "Me." qualifiers
 dotnet_style_qualification_for_field = false:warning
@@ -183,26 +201,25 @@ dotnet_style_coalesce_expression = true:warning
 dotnet_style_null_propagation = true:warning
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:warning
 
-# C# Style Rules
-# https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/language-rules#c-style-rules
+############ C# Style Rules
 
 # var preferences
-csharp_style_var_for_built_in_types = true:silent
-csharp_style_var_when_type_is_apparent = true:silent
-csharp_style_var_elsewhere = false:silent
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = false:suggestion
 # Expression-bodied members
 csharp_style_expression_bodied_methods = false:suggestion
 csharp_style_expression_bodied_constructors = true:silent
 csharp_style_expression_bodied_operators = true:silent
-csharp_style_expression_bodied_local_functions = false:silent
-csharp_style_expression_bodied_properties = true:silent
+csharp_style_expression_bodied_local_functions = false:suggestion
+csharp_style_expression_bodied_properties = true:warning
 csharp_style_expression_bodied_indexers = true:silent
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_lambdas = true:none
 # Expression-level preferences
-csharp_style_inlined_variable_declaration = true:warning
+csharp_style_inlined_variable_declaration = true:suggestion
 csharp_prefer_simple_default_expression = true:warning
-csharp_style_pattern_local_over_anonymous_function = true:warning
+csharp_style_pattern_local_over_anonymous_function = true:suggestion
 csharp_style_deconstructed_variable_declaration = true:warning
 csharp_style_prefer_index_operator = true:warning
 csharp_style_prefer_range_operator = true:warning
@@ -217,16 +234,14 @@ csharp_style_prefer_not_pattern = true:warning
 csharp_style_throw_expression = true:warning
 csharp_style_conditional_delegate_call = true:warning
 # Code block preferences
-csharp_prefer_braces = true:warning
+csharp_prefer_braces = false:warning
 csharp_prefer_simple_using_statement = true:suggestion
-dotnet_diagnostic.IDE0063.severity = suggestion # IDE0063: Use simple 'using' statement
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:warning
 # Modifier preferences
 csharp_prefer_static_local_function = true:warning
 
-# Unnecessary Code Rules
-# https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/unnecessary-code-rules
+############ Unnecessary Code Rules
 
 # .NET Unnecessary code rules
 [*.{cs,csx,cake,vb,vbx}]
@@ -235,13 +250,10 @@ dotnet_remove_unnecessary_suppression_exclusions = none:warning
 
 # C# Unnecessary code rules
 [*.{cs,csx,cake}]
-csharp_style_unused_value_expression_statement_preference = discard_variable:silent
-dotnet_diagnostic.IDE0058.severity = silent # IDE0058: Remove unnecessary expression value
+csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
-dotnet_diagnostic.IDE0059.severity = suggestion # IDE0059: Remove unnecessary value assignment
 
-# Formatting Rules
-# https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/formatting-rules
+############ Formatting Rules
 
 # Organize using directives
 dotnet_sort_system_directives_first = true
@@ -249,15 +261,13 @@ dotnet_separate_import_directive_groups = false
 
 [*.{cs, csx, cake}]
 # Newline options
-# https://docs.microsoft.com/visualstudio/ide/editorconfig-formatting-conventions#new-line-options
 csharp_new_line_before_open_brace = none
-csharp_new_line_before_else = true
-csharp_new_line_before_catch = true
-csharp_new_line_before_finally = true
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_finally = false
 csharp_new_line_before_members_in_anonymous_types = true
 csharp_new_line_between_query_expression_clauses = true
 # Indentation options
-# https://docs.microsoft.com/visualstudio/ide/editorconfig-formatting-conventions#indentation-options
 csharp_indent_case_contents = true
 csharp_indent_switch_labels = true
 csharp_indent_labels = no_change
@@ -265,7 +275,6 @@ csharp_indent_block_contents = true
 csharp_indent_braces = false
 csharp_indent_case_contents_when_block = false
 # Spacing options
-# https://docs.microsoft.com/visualstudio/ide/editorconfig-formatting-conventions#spacing-options
 csharp_space_after_cast = true
 csharp_space_after_keywords_in_control_flow_statements = true
 csharp_space_between_parentheses = false
@@ -289,12 +298,10 @@ csharp_space_before_open_square_brackets = false
 csharp_space_between_empty_square_brackets = false
 csharp_space_between_square_brackets = false
 # Wrap options
-# https://docs.microsoft.com/visualstudio/ide/editorconfig-formatting-conventions#wrap-options
 csharp_preserve_single_line_statements = false
 csharp_preserve_single_line_blocks = true
 
-# .NET Naming Rules
-# https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/naming-rules
+############ .NET Naming Rules
 
 [*.{cs, csx, cake, vb, vbx}]
 
@@ -373,20 +380,20 @@ dotnet_naming_rule.private_fields_group_must_be_camel_case_rule.severity = warni
 
 # No other public/protected/protected_internal fields are allowed
 # https://docs.microsoft.com/dotnet/standard/design-guidelines/field
-# dotnet_naming_symbols.other_public_internal_protected_fields_group.applicable_accessibilities = public, internal, protected, protected_internal
-# dotnet_naming_symbols.other_public_internal_protected_fields_group.applicable_kinds = field
-# dotnet_naming_rule.other_public_internal_protected_fields_disallowed_rule.symbols = other_public_internal_protected_fields_group
-# dotnet_naming_rule.other_public_internal_protected_fields_disallowed_rule.style = disallowed_style
-# dotnet_naming_rule.other_public_internal_protected_fields_disallowed_rule.severity = error
+dotnet_naming_symbols.other_public_internal_protected_fields_group.applicable_accessibilities = public, internal, protected, protected_internal
+dotnet_naming_symbols.other_public_internal_protected_fields_group.applicable_kinds = field
+dotnet_naming_rule.other_public_internal_protected_fields_disallowed_rule.symbols = other_public_internal_protected_fields_group
+dotnet_naming_rule.other_public_internal_protected_fields_disallowed_rule.style = disallowed_style
+dotnet_naming_rule.other_public_internal_protected_fields_disallowed_rule.severity = error
 
 # This rule should never fire.  However, it's included for at least two purposes:
 # First, it helps to understand, reason about, and root-case certain types of issues, such as bugs in .editorconfig parsers.
 # Second, it helps to raise immediate awareness if a new field type is added (as occurred recently in C#).
-# dotnet_naming_symbols.sanity_check_uncovered_field_case_group.applicable_accessibilities = *
-# dotnet_naming_symbols.sanity_check_uncovered_field_case_group.applicable_kinds = field
-# dotnet_naming_rule.sanity_check_uncovered_field_case_rule.symbols = sanity_check_uncovered_field_case_group
-# dotnet_naming_rule.sanity_check_uncovered_field_case_rule.style = internal_error_style
-# dotnet_naming_rule.sanity_check_uncovered_field_case_rule.severity = error
+dotnet_naming_symbols.sanity_check_uncovered_field_case_group.applicable_accessibilities = *
+dotnet_naming_symbols.sanity_check_uncovered_field_case_group.applicable_kinds = field
+dotnet_naming_rule.sanity_check_uncovered_field_case_rule.symbols = sanity_check_uncovered_field_case_group
+dotnet_naming_rule.sanity_check_uncovered_field_case_rule.style = internal_error_style
+dotnet_naming_rule.sanity_check_uncovered_field_case_rule.severity = error
 
 # All of the following must be PascalCase:
 # - Namespaces
@@ -441,7 +448,6 @@ dotnet_naming_rule.interface_rule.symbols = interface_group
 dotnet_naming_rule.interface_rule.style = prefix_interface_with_i_style
 dotnet_naming_rule.interface_rule.severity = warning
 
-
 # Local functions must be camelCase
 # Custom
 dotnet_naming_symbols.local_functions_group.applicable_accessibilities = local
@@ -450,12 +456,12 @@ dotnet_naming_rule.local_functions_must_be_camel_case_rule.symbols = local_funct
 dotnet_naming_rule.local_functions_must_be_camel_case_rule.style = camel_case_style
 dotnet_naming_rule.local_functions_must_be_camel_case_rule.severity = warning
 
-#### ReSharper  ####
+############ ReSharper
 
 resharper_enforce_line_ending_style = true
 
 # XML Docs
-resharper_linebreaks_inside_tags_for_elements_longer_than = 90
+resharper_linebreaks_inside_tags_for_elements_longer_than = 100
 resharper_xmldoc_indent_child_elements = remove_indent
 resharper_xmldoc_indent_text = remove_indent
 resharper_xmldoc_blank_line_after_pi = true
@@ -463,7 +469,8 @@ resharper_xmldoc_space_before_self_closing = false
 resharper_xmldoc_wrap_tags_and_pi = false
 resharper_xmldoc_keep_user_linebreaks = true
 
-# Align preferences
+# .NET align preferences
+resharper_int_align_comments = true
 resharper_align_multiline_binary_expressions_chain = false
 resharper_int_align_fields = false
 resharper_int_align_assignments = false
@@ -471,45 +478,48 @@ resharper_int_align_nested_ternary = true
 resharper_int_align_switch_expressions = false
 resharper_int_align_switch_sections = false
 resharper_int_align_property_patterns = false
-resharper_int_align_comments = true
 
-# Wrap preferences
-resharper_csharp_outdent_commas = true
-resharper_wrap_lines = true
-resharper_wrap_before_eq = true
+# Keep as its
+resharper_keep_existing_declaration_parens_arrangement = false
+resharper_keep_existing_invocation_parens_arrangement = true
+resharper_keep_existing_attribute_arrangement = true
 resharper_keep_existing_linebreaks = true
 resharper_keep_existing_arrangement = true
+resharper_keep_existing_initializer_arrangement = true
 resharper_keep_existing_embedded_arrangement = false
 resharper_keep_existing_expr_member_arrangement = false
 resharper_keep_existing_property_patterns_arrangement = false
 resharper_keep_existing_switch_expression_arrangement = false
-resharper_keep_existing_initializer_arrangement = true
-resharper_place_linq_into_on_new_line = false
+
+# Blank lines
+# wrap_lines = true
+resharper_wrap_after_declaration_lpar = true
+resharper_wrap_before_declaration_rpar = true
+resharper_wrap_after_invocation_lpar = false
+resharper_wrap_before_invocation_rpar = false
+resharper_wrap_arguments_style = wrap_if_long
+resharper_wrap_parameters_style = chop_if_long
+resharper_wrap_before_binary_opsign = false
+resharper_wrap_before_eq = false
+resharper_wrap_before_first_type_parameter_constraint = true
+resharper_wrap_verbatim_interpolated_strings = no_wrap
 resharper_wrap_before_linq_expression = true
-resharper_nested_ternary_style = simple_wrap
-resharper_place_simple_accessorholder_on_single_line = true
-resharper_csharp_wrap_before_first_type_parameter_constraint = true
-resharper_place_simple_enum_on_single_line = true
 resharper_wrap_before_arrow_with_expressions = false
-resharper_keep_existing_declaration_parens_arrangement = false
-resharper_csharp_wrap_after_declaration_lpar = true
-resharper_csharp_wrap_before_declaration_rpar = true
-resharper_keep_existing_invocation_parens_arrangement = true
-resharper_csharp_wrap_after_invocation_lpar = false
-resharper_csharp_wrap_before_invocation_rpar = false
-resharper_csharp_wrap_arguments_style = simple_wrap
-resharper_csharp_wrap_parameters_style = chop_if_long
-resharper_csharp_wrap_before_binary_opsign = true
+
+# Preferences
+resharper_outdent_commas = true
+resharper_empty_block_style = together_same_line
+resharper_nested_ternary_style = simple_wrap
+resharper_place_simple_enum_on_single_line = true
+resharper_place_linq_into_on_new_line = true
+resharper_place_simple_accessorholder_on_single_line = true
+resharper_braces_for_ifelse = required_for_multiline
+resharper_arguments_literal = named
+resharper_trailing_comma_in_multiline_lists = true
+resharper_place_expr_method_on_single_line = if_owner_is_single_line
+resharper_place_expr_property_on_single_line = if_owner_is_single_line
 resharper_wrap_object_and_collection_initializer_style = chop_if_long
 resharper_place_simple_embedded_statement_on_same_line = false
-resharper_wrap_verbatim_interpolated_strings = chop_if_long
-resharper_place_expr_method_on_single_line = true
-resharper_place_expr_property_on_single_line = if_owner_is_single_line
-
-# Style
-resharper_csharp_empty_block_style = together_same_line
-resharper_trailing_comma_in_multiline_lists = true
 resharper_space_within_single_line_array_initializer_braces = true
 
-# Code Quality Options: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-quality-rule-options
 # Inspired by: https://github.com/RehanSaeed/EditorConfig 2.1.0

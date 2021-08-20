@@ -37,15 +37,16 @@ namespace X.Paymob.CashIn {
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
             _Cache(content!.Token);
+
             return content;
         }
 
         public async ValueTask<string> GetAuthenticationTokenAsync() {
-            if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks) {
+            if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks)
                 return _token;
-            }
 
-            var response = await RequestAuthenticationTokenAsync();
+            CashInAuthenticationTokenResponse response = await RequestAuthenticationTokenAsync();
+
             return response.Token;
         }
 
