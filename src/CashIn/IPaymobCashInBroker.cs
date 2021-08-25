@@ -5,6 +5,7 @@
 using System.Diagnostics.Contracts;
 using System.Net.Http;
 using System.Threading.Tasks;
+using X.Paymob.CashIn.Models.Callback;
 using X.Paymob.CashIn.Models.Orders;
 using X.Paymob.CashIn.Models.Payment;
 using X.Paymob.CashIn.Models.Transactions;
@@ -34,15 +35,19 @@ namespace X.Paymob.CashIn {
         /// <exception cref="HttpRequestException"></exception>
         [Pure] Task<CashInSavedTokenPayResponse> CreateSavedTokenPayAsync(string paymentKey, string savedToken);
 
+        /// <summary>Get transactions page.</summary>
         /// <exception cref="HttpRequestException"></exception>
         [Pure] Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest request);
 
+        /// <summary>Get transaction by id.</summary>
         /// <exception cref="HttpRequestException"></exception>
         [Pure] Task<CashInTransaction?> GetTransactionAsync(string transactionId);
 
+        /// <summary>Get order by id.</summary>
         /// <exception cref="HttpRequestException"></exception>
         [Pure] Task<CashInOrder?> GetOrderAsync(string orderId);
 
+        /// <summary>Get orders page.</summary>
         /// <exception cref="HttpRequestException"></exception>
         [Pure] Task<CashInOrdersPage?> GetOrdersPageAsync(CashInOrdersPageRequest request);
 
@@ -51,6 +56,18 @@ namespace X.Paymob.CashIn {
         /// <param name="hmac">Received HMAC.</param>
         /// <returns>True if is valid, otherwise return false.</returns>
         [Pure] bool Validate(string concatenatedString, string hmac);
+
+        /// <summary>Validate the identity and integrity for "Paymob Accept"'s callback submission.</summary>
+        /// <param name="transaction">Received transaction.</param>
+        /// <param name="hmac">Received HMAC.</param>
+        /// <returns>True if is valid, otherwise return false.</returns>
+        [Pure] bool Validate(CashInCallbackTransaction transaction, string hmac);
+
+        /// <summary>Validate the identity and integrity for "Paymob Accept"'s callback submission.</summary>
+        /// <param name="token">Received token.</param>
+        /// <param name="hmac">Received HMAC.</param>
+        /// <returns>True if is valid, otherwise return false.</returns>
+        [Pure] bool Validate(CashInCallbackToken token, string hmac);
 
         /// <summary>Create iframe src url.</summary>
         /// <param name="iframeId">Iframe Id.</param>

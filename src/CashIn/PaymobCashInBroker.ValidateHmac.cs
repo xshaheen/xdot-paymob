@@ -6,9 +6,18 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 using Ardalis.GuardClauses;
+using X.Paymob.CashIn.Models.Callback;
 
 namespace X.Paymob.CashIn {
     public partial class PaymobCashInBroker {
+        public bool Validate(CashInCallbackTransaction transaction, string hmac) {
+            return Validate(transaction.ToConcatenatedString(), hmac);
+        }
+
+        public bool Validate(CashInCallbackToken token, string hmac) {
+            return Validate(token.ToConcatenatedString(), hmac);
+        }
+
         public bool Validate(string concatenatedString, string hmac) {
             Guard.Against.NullOrEmpty(concatenatedString, nameof(concatenatedString));
             Guard.Against.NullOrEmpty(hmac, nameof(hmac));
