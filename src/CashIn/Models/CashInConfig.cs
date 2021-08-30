@@ -27,8 +27,8 @@ namespace X.Paymob.CashIn.Models {
         [Required]
         public string Hmac { get; set; } = default!;
 
-        /// <summary>The default expiration time of this payment token in milliseconds.</summary>
-        [Range(2 * 60 * 1000, int.MaxValue, ErrorMessage = "The {0} must be greater than {1}.")]
+        /// <summary>The default expiration time of this payment token in seconds.</summary>
+        [Range(60, int.MaxValue, ErrorMessage = "The {0} must be greater than {1}.")]
         public int ExpirationPeriod { get; set; } = 3600;
     }
 }
