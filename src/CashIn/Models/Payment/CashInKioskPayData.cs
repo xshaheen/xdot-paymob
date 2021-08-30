@@ -35,27 +35,27 @@ namespace X.Paymob.CashIn.Models.Payment {
         public int DueAmount { get; init; }
 
         [JsonPropertyName("biller")]
-        public JsonElement Biller { get; init; }
+        public object? Biller { get; init; }
 
         [JsonPropertyName("from_user")]
-        public JsonElement FromUser { get; init; }
+        public object? FromUser { get; init; }
 
         [JsonPropertyName("ref")]
-        public JsonElement Ref { get; init; }
+        public object? Ref { get; init; }
 
         [JsonPropertyName("cashout_amount")]
-        public JsonElement CashOutAmount { get; init; }
+        public object? CashOutAmount { get; init; }
 
         [JsonPropertyName("agg_terminal")]
-        public JsonElement AggTerminal { get; init; }
+        public object? AggTerminal { get; init; }
 
         [JsonPropertyName("amount")]
-        public JsonElement Amount { get; init; }
+        public object? Amount { get; init; }
 
         [JsonPropertyName("rrn")]
-        public JsonElement Rrn { get; init; }
+        public object? Rrn { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

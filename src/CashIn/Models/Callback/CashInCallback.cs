@@ -23,9 +23,9 @@ namespace X.Paymob.CashIn.Models.Callback {
         /// </para>
         /// </summary>
         [JsonPropertyName("obj")]
-        public JsonElement Obj { get; init; }
+        public object? Obj { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

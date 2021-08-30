@@ -65,6 +65,6 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public string? ExtraDescription { get; init; } = "NA";
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

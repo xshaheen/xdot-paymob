@@ -62,6 +62,6 @@ namespace X.Paymob.CashIn.Models.Orders {
         public string ShippingMethod { get; init; } = "UNK";
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

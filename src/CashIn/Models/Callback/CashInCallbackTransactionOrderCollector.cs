@@ -12,8 +12,8 @@ using X.Paymob.CashIn.Internal;
 namespace X.Paymob.CashIn.Models.Callback {
     [PublicAPI]
     public class CashInCallbackTransactionOrderCollector {
-        private readonly IReadOnlyList<JsonElement>? _companyEmails;
-        private readonly IReadOnlyList<JsonElement>? _phones;
+        private readonly IReadOnlyList<object?>? _companyEmails;
+        private readonly IReadOnlyList<object?>? _phones;
 
         [JsonPropertyName("id")]
         public int Id { get; init; }
@@ -41,14 +41,14 @@ namespace X.Paymob.CashIn.Models.Callback {
         public string? Street { get; init; }
 
         [JsonPropertyName("phones")]
-        public IReadOnlyList<JsonElement> Phones {
-            get => _phones ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> Phones {
+            get => _phones ?? Array.Empty<object?>();
             init => _phones = value;
         }
 
         [JsonPropertyName("company_emails")]
-        public IReadOnlyList<JsonElement> CompanyEmails {
-            get => _companyEmails ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> CompanyEmails {
+            get => _companyEmails ?? Array.Empty<object?>();
             init => _companyEmails = value;
         }
     }

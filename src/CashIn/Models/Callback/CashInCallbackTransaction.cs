@@ -157,16 +157,16 @@ namespace X.Paymob.CashIn.Models.Callback {
         }
 
         [JsonPropertyName("other_endpoint_reference")]
-        public JsonElement OtherEndpointReference { get; init; }
+        public object? OtherEndpointReference { get; init; }
 
         [JsonPropertyName("merchant_staff_tag")]
-        public JsonElement MerchantStaffTag { get; init; }
+        public object? MerchantStaffTag { get; init; }
 
         [JsonPropertyName("parent_transaction")]
         public int? ParentTransaction { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
 
         public bool IsSuccessful() {
             return !Pending && Success;

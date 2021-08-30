@@ -95,6 +95,6 @@ namespace X.Paymob.CashIn.Models.Callback {
         public CashInCallbackTransactionDataMigsOrder MigsOrder { get; init; } = default!;
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

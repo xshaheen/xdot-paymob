@@ -42,7 +42,7 @@ namespace X.Paymob.CashIn.Models.Callback {
         public bool UserAdded { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
 
         /// <summary>Return the concatenated string of transaction.</summary>
         public string ToConcatenatedString() {

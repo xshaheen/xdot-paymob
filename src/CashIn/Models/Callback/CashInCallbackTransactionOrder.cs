@@ -13,8 +13,8 @@ using X.Paymob.CashIn.Models.Orders;
 namespace X.Paymob.CashIn.Models.Callback {
     [PublicAPI]
     public class CashInCallbackTransactionOrder {
-        private readonly IReadOnlyList<JsonElement>? _deliveryStatus;
-        private readonly IReadOnlyList<JsonElement>? _items;
+        private readonly IReadOnlyList<object?>? _deliveryStatus;
+        private readonly IReadOnlyList<object?>? _items;
 
         [JsonPropertyName("id")]
         public int Id { get; init; }
@@ -84,33 +84,33 @@ namespace X.Paymob.CashIn.Models.Callback {
         public CashInCallbackTransactionOrderCollector? Collector { get; init; }
 
         [JsonPropertyName("data")]
-        public JsonElement Data { get; init; }
+        public object? Data { get; init; }
 
         [JsonPropertyName("merchant_staff_tag")]
-        public JsonElement MerchantStaffTag { get; init; }
+        public object? MerchantStaffTag { get; init; }
 
         [JsonPropertyName("pickup_data")]
-        public JsonElement PickupData { get; init; }
+        public object? PickupData { get; init; }
 
         [JsonPropertyName("merchant_order_id")]
-        public JsonElement MerchantOrderId { get; init; }
+        public object? MerchantOrderId { get; init; }
 
         [JsonPropertyName("wallet_notification")]
-        public JsonElement WalletNotification { get; init; }
+        public object? WalletNotification { get; init; }
 
         [JsonPropertyName("items")]
-        public IReadOnlyList<JsonElement> Items {
-            get => _items ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> Items {
+            get => _items ?? Array.Empty<object?>();
             init => _items = value;
         }
 
         [JsonPropertyName("delivery_status")]
-        public IReadOnlyList<JsonElement> DeliveryStatus {
-            get => _deliveryStatus ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> DeliveryStatus {
+            get => _deliveryStatus ?? Array.Empty<object?>();
             init => _deliveryStatus = value;
         }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

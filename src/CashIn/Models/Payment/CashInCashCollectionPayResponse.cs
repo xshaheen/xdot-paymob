@@ -115,7 +115,7 @@ namespace X.Paymob.CashIn.Models.Payment {
         public string Hmac { get; init; } = default!;
 
         [JsonPropertyName("merchant_txn_ref")]
-        public JsonElement MerchantTxnRef { get; init; }
+        public object? MerchantTxnRef { get; init; }
 
         [JsonPropertyName("use_redirection")]
         public bool UseRedirection { get; init; }

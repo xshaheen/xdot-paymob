@@ -13,7 +13,7 @@ using X.Paymob.CashIn.Models.Orders;
 namespace X.Paymob.CashIn.Models.Payment {
     [PublicAPI]
     public class CashInKioskPayResponse {
-        private readonly IReadOnlyList<JsonElement>? _transactionProcessedCallbackResponses;
+        private readonly IReadOnlyList<object?>? _transactionProcessedCallbackResponses;
 
         [JsonPropertyName("id")]
         public int Id { get; init; }
@@ -113,22 +113,22 @@ namespace X.Paymob.CashIn.Models.Payment {
         public CashInPayPaymentKeyClaims PaymentKeyClaims { get; init; } = default!;
 
         [JsonPropertyName("other_endpoint_reference")]
-        public JsonElement OtherEndpointReference { get; init; }
+        public object? OtherEndpointReference { get; init; }
 
         [JsonPropertyName("merchant_staff_tag")]
-        public JsonElement MerchantStaffTag { get; init; }
+        public object? MerchantStaffTag { get; init; }
 
         [JsonPropertyName("parent_transaction")]
-        public JsonElement ParentTransaction { get; init; }
+        public object? ParentTransaction { get; init; }
 
         [JsonPropertyName("transaction_processed_callback_responses")]
-        public IReadOnlyList<JsonElement> TransactionProcessedCallbackResponses {
-            get => _transactionProcessedCallbackResponses ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> TransactionProcessedCallbackResponses {
+            get => _transactionProcessedCallbackResponses ?? Array.Empty<object?>();
             init => _transactionProcessedCallbackResponses = value;
         }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
 
         public bool IsCreatedSuccessfully() {
             return !Success && Pending;

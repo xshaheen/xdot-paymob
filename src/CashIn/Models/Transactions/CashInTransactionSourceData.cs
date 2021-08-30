@@ -20,9 +20,9 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public string Type { get; init; } = default!;
 
         [JsonPropertyName("tenure")]
-        public JsonElement Tenure { get; init; }
+        public object? Tenure { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

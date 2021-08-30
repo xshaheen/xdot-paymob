@@ -132,19 +132,19 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public string? CardHolderBank { get; init; }
 
         [JsonPropertyName("parent_transaction")]
-        public JsonElement ParentTransaction { get; init; }
+        public object? ParentTransaction { get; init; }
 
         [JsonPropertyName("wallet_transaction_type")]
-        public JsonElement WalletTransactionType { get; init; }
+        public object? WalletTransactionType { get; init; }
 
         [JsonPropertyName("installment")]
-        public JsonElement Installment { get; init; }
+        public object? Installment { get; init; }
 
         [JsonPropertyName("merchant_staff_tag")]
-        public JsonElement MerchantStaffTag { get; init; }
+        public object? MerchantStaffTag { get; init; }
 
         [JsonPropertyName("other_endpoint_reference")]
-        public JsonElement OtherEndpointReference { get; init; }
+        public object? OtherEndpointReference { get; init; }
 
         [JsonPropertyName("source_data")]
         public CashInTransactionSourceData CashInTransactionSourceData { get; init; } = default!;
@@ -159,6 +159,6 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public CashInTransactionBillingData BillingData { get; init; } = default!;
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; }
+        public IDictionary<string, object?>? ExtensionData { get; }
     }
 }

@@ -29,7 +29,7 @@ namespace X.Paymob.CashIn.Models.Orders {
         }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
 
         public bool HasPrevious() {
             return Previous is not null;

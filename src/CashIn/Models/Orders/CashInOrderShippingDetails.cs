@@ -35,6 +35,6 @@ namespace X.Paymob.CashIn.Models.Orders {
         public string Contents { get; init; } = default!;
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

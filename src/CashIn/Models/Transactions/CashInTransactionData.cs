@@ -96,6 +96,6 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public string? RedirectUrl { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

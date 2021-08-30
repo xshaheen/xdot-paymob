@@ -12,7 +12,7 @@ using X.Paymob.CashIn.Internal;
 namespace X.Paymob.CashIn.Models.Merchant {
     [PublicAPI]
     public class CashInProfileUser {
-        private readonly IReadOnlyList<JsonElement>? _groups;
+        private readonly IReadOnlyList<object?>? _groups;
         private readonly IReadOnlyList<int>? _userPermissions;
 
         [JsonPropertyName("id")]
@@ -48,8 +48,8 @@ namespace X.Paymob.CashIn.Models.Merchant {
         public DateTimeOffset? LastLogin { get; init; }
 
         [JsonPropertyName("groups")]
-        public IReadOnlyList<JsonElement> Groups {
-            get => _groups ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> Groups {
+            get => _groups ?? Array.Empty<object?>();
             init => _groups = value;
         }
 
@@ -60,6 +60,6 @@ namespace X.Paymob.CashIn.Models.Merchant {
         }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

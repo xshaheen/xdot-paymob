@@ -12,7 +12,7 @@ using X.Paymob.CashIn.Internal;
 namespace X.Paymob.CashIn.Models.Orders {
     [PublicAPI]
     public class CashInOrder {
-        private readonly IReadOnlyList<JsonElement>? _deliveryStatus;
+        private readonly IReadOnlyList<object?>? _deliveryStatus;
         private readonly IReadOnlyList<CashInOrderItem>? _items;
 
         [JsonPropertyName("id")]
@@ -83,19 +83,19 @@ namespace X.Paymob.CashIn.Models.Orders {
         public CashInOrderShippingDetails? ShippingDetails { get; init; }
 
         [JsonPropertyName("wallet_notification")]
-        public JsonElement WalletNotification { get; init; }
+        public object? WalletNotification { get; init; }
 
         [JsonPropertyName("merchant_staff_tag")]
-        public JsonElement MerchantStaffTag { get; init; }
+        public object? MerchantStaffTag { get; init; }
 
         [JsonPropertyName("pickup_data")]
-        public JsonElement PickupData { get; init; }
+        public object? PickupData { get; init; }
 
         [JsonPropertyName("data")]
-        public JsonElement Data { get; init; }
+        public object? Data { get; init; }
 
         [JsonPropertyName("collector")]
-        public JsonElement Collector { get; init; }
+        public object? Collector { get; init; }
 
         [JsonPropertyName("items")]
         public IReadOnlyList<CashInOrderItem> Items {
@@ -104,12 +104,12 @@ namespace X.Paymob.CashIn.Models.Orders {
         }
 
         [JsonPropertyName("delivery_status")]
-        public IReadOnlyList<JsonElement> DeliveryStatus {
-            get => _deliveryStatus ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> DeliveryStatus {
+            get => _deliveryStatus ?? Array.Empty<object?>();
             init => _deliveryStatus = value;
         }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

@@ -13,10 +13,10 @@ namespace X.Paymob.CashIn.Models.Merchant {
     [PublicAPI]
     public class CashInProfile {
         private readonly IReadOnlyList<string>? _companyEmails;
-        private readonly IReadOnlyList<JsonElement>? _customExportColumns;
-        private readonly IReadOnlyList<JsonElement>? _permissions;
+        private readonly IReadOnlyList<object?>? _customExportColumns;
+        private readonly IReadOnlyList<object?>? _permissions;
         private readonly IReadOnlyList<string>? _phones;
-        private readonly IReadOnlyList<JsonElement>? _serverIp;
+        private readonly IReadOnlyList<object?>? _serverIp;
 
         [JsonPropertyName("id")]
         public int Id { get; init; }
@@ -137,117 +137,117 @@ namespace X.Paymob.CashIn.Models.Merchant {
         public string? SalesOwner { get; init; }
 
         [JsonPropertyName("password")]
-        public JsonElement Password { get; init; }
+        public object? Password { get; init; }
 
         [JsonPropertyName("username")]
-        public JsonElement Username { get; init; }
+        public object? Username { get; init; }
 
         [JsonPropertyName("merchant_external_link")]
-        public JsonElement MerchantExternalLink { get; init; }
+        public object? MerchantExternalLink { get; init; }
 
         [JsonPropertyName("order_retrieval_endpoint")]
-        public JsonElement OrderRetrievalEndpoint { get; init; }
+        public object? OrderRetrievalEndpoint { get; init; }
 
         [JsonPropertyName("delivery_update_endpoint")]
-        public JsonElement DeliveryUpdateEndpoint { get; init; }
+        public object? DeliveryUpdateEndpoint { get; init; }
 
         [JsonPropertyName("awb_banner")]
-        public JsonElement AwbBanner { get; init; }
+        public object? AwbBanner { get; init; }
 
         [JsonPropertyName("email_banner")]
-        public JsonElement EmailBanner { get; init; }
+        public object? EmailBanner { get; init; }
 
         [JsonPropertyName("identification_number")]
-        public JsonElement IdentificationNumber { get; init; }
+        public object? IdentificationNumber { get; init; }
 
         [JsonPropertyName("bank_deactivation_reason")]
-        public JsonElement BankDeactivationReason { get; init; }
+        public object? BankDeactivationReason { get; init; }
 
         [JsonPropertyName("national_id")]
-        public JsonElement NationalId { get; init; }
+        public object? NationalId { get; init; }
 
         [JsonPropertyName("super_agent")]
-        public JsonElement SuperAgent { get; init; }
+        public object? SuperAgent { get; init; }
 
         [JsonPropertyName("wallet_limit_profile")]
-        public JsonElement WalletLimitProfile { get; init; }
+        public object? WalletLimitProfile { get; init; }
 
         [JsonPropertyName("address")]
-        public JsonElement Address { get; init; }
+        public object? Address { get; init; }
 
         [JsonPropertyName("commercial_registration")]
-        public JsonElement CommercialRegistration { get; init; }
+        public object? CommercialRegistration { get; init; }
 
         [JsonPropertyName("commercial_registration_area")]
-        public JsonElement CommercialRegistrationArea { get; init; }
+        public object? CommercialRegistrationArea { get; init; }
 
         [JsonPropertyName("distributor_code")]
-        public JsonElement DistributorCode { get; init; }
+        public object? DistributorCode { get; init; }
 
         [JsonPropertyName("distributor_branch_code")]
-        public JsonElement DistributorBranchCode { get; init; }
+        public object? DistributorBranchCode { get; init; }
 
         [JsonPropertyName("wallet_phone_number")]
-        public JsonElement WalletPhoneNumber { get; init; }
+        public object? WalletPhoneNumber { get; init; }
 
         [JsonPropertyName("latitude")]
-        public JsonElement Latitude { get; init; }
+        public object? Latitude { get; init; }
 
         [JsonPropertyName("longitude")]
-        public JsonElement Longitude { get; init; }
+        public object? Longitude { get; init; }
 
         [JsonPropertyName("bank_staffs")]
-        public JsonElement BankStaffs { get; init; }
+        public object? BankStaffs { get; init; }
 
         [JsonPropertyName("bank_rejection_reason")]
-        public JsonElement BankRejectionReason { get; init; }
+        public object? BankRejectionReason { get; init; }
 
         [JsonPropertyName("bank_digital_rejection_reason")]
-        public JsonElement BankDigitalRejectionReason { get; init; }
+        public object? BankDigitalRejectionReason { get; init; }
 
         [JsonPropertyName("random_secret")]
-        public JsonElement RandomSecret { get; init; }
+        public object? RandomSecret { get; init; }
 
         [JsonPropertyName("random_iv")]
-        public JsonElement RandomIv { get; init; }
+        public object? RandomIv { get; init; }
 
         [JsonPropertyName("withhold_transfers_reason")]
-        public JsonElement WithholdTransfersReason { get; init; }
+        public object? WithholdTransfersReason { get; init; }
 
         [JsonPropertyName("withhold_transfers_notes")]
-        public JsonElement WithholdTransfersNotes { get; init; }
+        public object? WithholdTransfersNotes { get; init; }
 
         [JsonPropertyName("topup_transfer_id")]
-        public JsonElement TopupTransferId { get; init; }
+        public object? TopupTransferId { get; init; }
 
         [JsonPropertyName("acq_partner")]
-        public JsonElement AcqPartner { get; init; }
+        public object? AcqPartner { get; init; }
 
         [JsonPropertyName("dom")]
-        public JsonElement Dom { get; init; }
+        public object? Dom { get; init; }
 
         [JsonPropertyName("bank_related")]
-        public JsonElement BankRelated { get; init; }
+        public object? BankRelated { get; init; }
 
         [JsonPropertyName("custom_export_columns")]
-        public IReadOnlyList<JsonElement> CustomExportColumns {
-            get => _customExportColumns ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> CustomExportColumns {
+            get => _customExportColumns ?? Array.Empty<object?>();
             init => _customExportColumns = value;
         }
 
         [JsonPropertyName("server_IP")]
-        public IReadOnlyList<JsonElement> ServerIp {
-            get => _serverIp ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> ServerIp {
+            get => _serverIp ?? Array.Empty<object?>();
             init => _serverIp = value;
         }
 
         [JsonPropertyName("permissions")]
-        public IReadOnlyList<JsonElement> Permissions {
-            get => _permissions ?? Array.Empty<JsonElement>();
+        public IReadOnlyList<object?> Permissions {
+            get => _permissions ?? Array.Empty<object?>();
             init => _permissions = value;
         }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }

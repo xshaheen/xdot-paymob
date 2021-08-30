@@ -19,7 +19,7 @@ namespace CashIn.Tests.Unit {
         public PaymobCashInFixture() {
             Server = WireMockServer.Start();
             HttpClient = new HttpClient { BaseAddress = new Uri(Server.Urls[0]) };
-            AutoFixture.Register(() => JsonSerializer.Deserialize<JsonElement>("null"));
+            AutoFixture.Register(() => JsonSerializer.Deserialize<object?>("null"));
         }
 
         public Fixture AutoFixture { get; } = new();

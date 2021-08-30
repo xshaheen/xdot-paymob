@@ -53,15 +53,15 @@ namespace X.Paymob.CashIn.Models.Callback {
         public string? Notes { get; init; }
 
         [JsonPropertyName("latitude")]
-        public JsonElement Latitude { get; init; }
+        public object? Latitude { get; init; }
 
         [JsonPropertyName("longitude")]
-        public JsonElement Longitude { get; init; }
+        public object? Longitude { get; init; }
 
         [JsonPropertyName("return_type")]
-        public JsonElement ReturnType { get; init; }
+        public object? ReturnType { get; init; }
 
         [JsonExtensionData]
-        public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+        public IDictionary<string, object?>? ExtensionData { get; init; }
     }
 }
