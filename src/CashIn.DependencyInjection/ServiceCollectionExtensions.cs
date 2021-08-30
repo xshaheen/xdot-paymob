@@ -28,7 +28,7 @@ namespace X.Paymob.CashIn {
             Guard.Against.Null(services, nameof(services));
             Guard.Against.Null(config, nameof(config));
 
-            services.PostConfigure(config);
+            services.AddOptions<CashInConfig>().PostConfigure(config).ValidateDataAnnotations();
             _AddServices(services, retryPolicy);
             return services;
         }
