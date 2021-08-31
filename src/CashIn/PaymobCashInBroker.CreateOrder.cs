@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Flurl;
 using X.Paymob.CashIn.Models.Orders;
 
 namespace X.Paymob.CashIn {
@@ -16,15 +17,12 @@ namespace X.Paymob.CashIn {
         /// <summary>Create order. Order is a logical container for a transaction(s).</summary>
         public async Task<CashInCreateOrderResponse> CreateOrderAsync(CashInCreateOrderRequest request) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
+            var requestUrl = Url.Combine(_config.ApiBaseUrl, "ecommerce/orders");
             var internalRequest = new CashInCreateOrderInternalRequest(authToken, request);
-
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(
-                "ecommerce/orders",
-                internalRequest,
-                _IgnoreNullOptions
-            );
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest, _IgnoreNullOptions);
 
             response.EnsureSuccessStatusCode();
+
             return (await response.Content.ReadFromJsonAsync<CashInCreateOrderResponse>())!;
         }
     }

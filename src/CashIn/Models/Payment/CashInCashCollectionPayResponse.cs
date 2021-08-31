@@ -3,7 +3,6 @@
 // See the LICENSE.txt file in the project root for full license information.
 
 using System;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;

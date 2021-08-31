@@ -18,14 +18,18 @@ namespace CashIn.Tests.Unit {
     public sealed class PaymobCashInFixture : IDisposable {
         public PaymobCashInFixture() {
             Server = WireMockServer.Start();
-            HttpClient = new HttpClient { BaseAddress = new Uri(Server.Urls[0]) };
+            HttpClient = new HttpClient();
             AutoFixture.Register(() => JsonSerializer.Deserialize<object?>("null"));
+            CashInConfig = new CashInConfig { ApiBaseUrl = Server.Urls[0] };
+            Options = Substitute.For<IOptionsMonitor<CashInConfig>>();
+            Options.CurrentValue.Returns(CashInConfig);
         }
 
         public Fixture AutoFixture { get; } = new();
         public WireMockServer Server { get; }
         public HttpClient HttpClient { get; }
-        public IOptionsMonitor<CashInConfig> Options { get; } = Substitute.For<IOptionsMonitor<CashInConfig>>();
+        public CashInConfig CashInConfig { get; }
+        public IOptionsMonitor<CashInConfig> Options { get; }
         public IClockBroker ClockBroker { get; } = Substitute.For<IClockBroker>();
 
         public void Dispose() {

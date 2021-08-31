@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 
 namespace X.Paymob.CashIn.Models {
     [PublicAPI]
-    public class CashInConfig {
+    public record CashInConfig {
         /// <summary>API base url default: "https://accept.paymobsolutions.com/api"</summary>
         [Required]
         public string ApiBaseUrl { get; set; } = "https://accept.paymobsolutions.com/api";

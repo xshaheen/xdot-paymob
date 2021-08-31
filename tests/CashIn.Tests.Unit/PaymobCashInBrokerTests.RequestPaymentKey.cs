@@ -12,7 +12,6 @@ using NSubstitute;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
-using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Payment;
 using Xunit;
 
@@ -33,7 +32,8 @@ namespace CashIn.Tests.Unit {
             // given
             var (authenticator, token) = _SetupGentAuthenticationToken();
             var expiration = _fixture.AutoFixture.Create<int>();
-            _fixture.Options.CurrentValue.Returns(_ => new CashInConfig { ExpirationPeriod = expiration });
+            var config = _fixture.CashInConfig with { ExpirationPeriod = expiration };
+            _fixture.Options.CurrentValue.Returns(config);
             var internalRequest = new CashInPaymentKeyInternalRequest(request, token, expiration);
             var internalRequestJson = JsonSerializer.Serialize(internalRequest);
             var response = _fixture.AutoFixture.Create<CashInPaymentKeyResponse>();

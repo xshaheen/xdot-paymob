@@ -13,11 +13,13 @@ namespace X.Paymob.CashIn {
     public partial class PaymobCashInBroker {
         public async Task<CashInOrdersPage?> GetOrdersPageAsync(CashInOrdersPageRequest request) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
-            string requestUrl = "ecommerce/orders".SetQueryParams(request.Query);
+
+            string requestUrl =
+                Url.Combine(_config.ApiBaseUrl, "ecommerce/orders").SetQueryParams(request.Query);
 
             using var requestMessage = new HttpRequestMessage {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri(requestUrl, UriKind.Relative),
+                RequestUri = new Uri(requestUrl, UriKind.Absolute),
                 Headers = {
                     { "Authorization", $"Bearer {authToken}" },
                 },
@@ -30,11 +32,11 @@ namespace X.Paymob.CashIn {
 
         public async Task<CashInOrder?> GetOrderAsync(string orderId) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
-            string requestUrl = Url.Combine("ecommerce/orders", orderId);
+            string requestUrl = Url.Combine(_config.ApiBaseUrl, "ecommerce/orders", orderId);
 
             using var request = new HttpRequestMessage {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri(requestUrl, UriKind.Relative),
+                RequestUri = new Uri(requestUrl, UriKind.Absolute),
                 Headers = {
                     { "Authorization", $"Bearer {authToken}" },
                 },

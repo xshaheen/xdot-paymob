@@ -12,7 +12,6 @@ using NSubstitute;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
-using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Auth;
 using Xunit;
 
@@ -22,7 +21,7 @@ namespace CashIn.Tests.Unit {
         public async Task should_make_call_and_return_response_when_send_request() {
             // given
             string apiKey = _fixture.AutoFixture.Create<string>();
-            var config = new CashInConfig { ApiKey = apiKey };
+            var config = _fixture.CashInConfig with { ApiKey = apiKey };
             _fixture.Options.CurrentValue.Returns(config);
             var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
             string requestJson = JsonSerializer.Serialize(request);
@@ -50,7 +49,7 @@ namespace CashIn.Tests.Unit {
         public void should_throw_http_request_exception_when_not_success() {
             // given
             string apiKey = _fixture.AutoFixture.Create<string>();
-            var config = new CashInConfig { ApiKey = apiKey };
+            var config = _fixture.CashInConfig with { ApiKey = apiKey };
             _fixture.Options.CurrentValue.Returns(config);
             var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
             string requestJson = JsonSerializer.Serialize(request);
@@ -60,7 +59,8 @@ namespace CashIn.Tests.Unit {
                 .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError));
 
             // when
-            var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
+            var authenticator =
+                new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
             var invocation = FluentActions.Awaiting(() => authenticator.RequestAuthenticationTokenAsync());
 
             // then

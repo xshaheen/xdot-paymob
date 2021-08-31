@@ -5,6 +5,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Flurl;
 using X.Paymob.CashIn.Models.Payment;
 
 namespace X.Paymob.CashIn {
@@ -15,8 +16,9 @@ namespace X.Paymob.CashIn {
         /// </summary>
         public async Task<CashInPaymentKeyResponse> RequestPaymentKeyAsync(CashInPaymentKeyRequest request) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
-            var req = new CashInPaymentKeyInternalRequest(request, authToken, _config.ExpirationPeriod);
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("acceptance/payment_keys", req);
+            var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payment_keys");
+            var internalRequest = new CashInPaymentKeyInternalRequest(request, authToken, _config.ExpirationPeriod);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest);
             response.EnsureSuccessStatusCode();
             return (await response.Content.ReadFromJsonAsync<CashInPaymentKeyResponse>())!;
         }

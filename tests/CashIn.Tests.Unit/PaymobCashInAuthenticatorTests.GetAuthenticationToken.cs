@@ -11,7 +11,6 @@ using NSubstitute;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
-using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Auth;
 using Xunit;
 
@@ -23,7 +22,8 @@ namespace CashIn.Tests.Unit {
             _SetupRandomResponse();
 
             // when
-            var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
+            var authenticator =
+                new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
             _fixture.ClockBroker.TicksNow.Returns(DateTime.Now.Ticks);
             string result1 = await authenticator.GetAuthenticationTokenAsync();
             _fixture.ClockBroker.TicksNow.Returns(DateTime.Now.AddMinutes(61).Ticks);
@@ -56,7 +56,7 @@ namespace CashIn.Tests.Unit {
 
         private void _SetupRandomResponse() {
             string apiKey = _fixture.AutoFixture.Create<string>();
-            var config = new CashInConfig { ApiKey = apiKey };
+            var config = _fixture.CashInConfig with { ApiKey = apiKey };
             _fixture.Options.CurrentValue.Returns(config);
             var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
             string requestJson = JsonSerializer.Serialize(request);

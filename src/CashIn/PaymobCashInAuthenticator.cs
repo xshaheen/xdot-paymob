@@ -6,6 +6,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Flurl;
 using Microsoft.Extensions.Options;
 using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Auth;
@@ -31,9 +32,10 @@ namespace X.Paymob.CashIn {
         }
 
         public async Task<CashInAuthenticationTokenResponse> RequestAuthenticationTokenAsync() {
-            string apiKey = _options.CurrentValue.ApiKey;
-            var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("auth/tokens", request);
+            var config = _options.CurrentValue;
+            var requestUrl = Url.Combine(config.ApiBaseUrl, "auth/tokens");
+            var request = new CashInAuthenticationTokenRequest { ApiKey = config.ApiKey };
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
             _Cache(content!.Token);
