@@ -34,18 +34,18 @@ namespace X.Paymob.CashIn {
 
         /// <summary>Adds services required for using paymob cash in.</summary>
         /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
-        /// <param name="configurationSection">The configuration section that contains <see cref="CashInConfig"/> settings.</param>
+        /// <param name="cashInSection">The configuration section that contains <see cref="CashInConfig"/> settings.</param>
         /// <param name="retryPolicy">Retry policy used to override used policy.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
         public static IServiceCollection AddPaymobCashIn(
             this IServiceCollection services,
-            IConfiguration configurationSection,
+            IConfigurationSection cashInSection,
             Func<PolicyBuilder<HttpResponseMessage>, IAsyncPolicy<HttpResponseMessage>>? retryPolicy = null
         ) {
             Guard.Against.Null(services, nameof(services));
-            Guard.Against.Null(configurationSection, nameof(configurationSection));
+            Guard.Against.Null(cashInSection, nameof(cashInSection));
 
-            services.AddOptions<CashInConfig>().Bind(configurationSection).ValidateDataAnnotations();
+            services.AddOptions<CashInConfig>().Bind(cashInSection).ValidateDataAnnotations();
             _AddServices(services, retryPolicy);
             return services;
         }
