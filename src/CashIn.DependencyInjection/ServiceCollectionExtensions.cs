@@ -8,7 +8,6 @@ using Ardalis.GuardClauses;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Polly;
 using X.Paymob.CashIn.Models;
 
@@ -56,21 +55,18 @@ namespace X.Paymob.CashIn {
             Func<PolicyBuilder<HttpResponseMessage>, IAsyncPolicy<HttpResponseMessage>>? retryPolicy
         ) {
             services.AddSingleton<IClockBroker, ClockBroker>();
+            const string  clientName = "paymob_cash_in";
+            services.AddHttpClient(clientName);
 
             services
                 .AddSingleton<IPaymobCashInAuthenticator, PaymobCashInAuthenticator>()
-                .AddHttpClient<IPaymobCashInAuthenticator, PaymobCashInAuthenticator>(_ConfigureClient)
+                .AddHttpClient<IPaymobCashInAuthenticator, PaymobCashInAuthenticator>(clientName)
                 .AddTransientHttpErrorPolicy(retryPolicy ?? _ConfigurePolicy);
 
             services
                 .AddScoped<IPaymobCashInBroker, PaymobCashInBroker>()
-                .AddHttpClient<IPaymobCashInBroker, PaymobCashInBroker>(_ConfigureClient)
+                .AddHttpClient<IPaymobCashInBroker, PaymobCashInBroker>(clientName)
                 .AddTransientHttpErrorPolicy(retryPolicy ?? _ConfigurePolicy);
-        }
-
-        private static void _ConfigureClient(IServiceProvider provider, HttpClient client) {
-            var config = provider.GetRequiredService<IOptions<CashInConfig>>();
-            client.BaseAddress = new Uri(config.Value.ApiBaseUrl);
         }
 
         private static IAsyncPolicy<HttpResponseMessage> _ConfigurePolicy(PolicyBuilder<HttpResponseMessage> builder) {
