@@ -3,7 +3,6 @@
 // See the LICENSE.txt file in the project root for full license information.
 
 using System.Net;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -53,6 +52,7 @@ namespace CashIn.Tests.Unit {
             _fixture.Options.CurrentValue.Returns(config);
             var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
             string requestJson = JsonSerializer.Serialize(request);
+            var body = _fixture.AutoFixture.Create<string>();
 
             _fixture.Server
                 .Given(Request.Create().WithPath("/auth/tokens").UsingPost().WithBody(requestJson))
@@ -64,12 +64,10 @@ namespace CashIn.Tests.Unit {
             var invocation = FluentActions.Awaiting(() => authenticator.RequestAuthenticationTokenAsync());
 
             // then
-            invocation.Should()
-                .Throw<HttpRequestException>()
-#if NET5_0_OR_GREATER
-                .And.StatusCode.Should().Be(HttpStatusCode.InternalServerError)
-#endif
-                ;
+            var exception = invocation.Should().Throw<PaymobRequestException>().Which;
+            exception.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+            exception.Message.Should().Be("Paymob Cash In - Http request failed with status code (500).");
+            exception.Body.Should().Be(body);
         }
     }
 }

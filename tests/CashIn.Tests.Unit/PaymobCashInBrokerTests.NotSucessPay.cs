@@ -4,8 +4,8 @@
 
 using System;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
+using AutoFixture;
 using FluentAssertions;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -27,21 +27,20 @@ namespace CashIn.Tests.Unit {
             Func<PaymobCashInBroker, Task<object>> func
         ) {
             // given
+            var body = _fixture.AutoFixture.Create<string>();
+
+            _fixture.Server.Reset();
+
             _fixture.Server
                 .Given(Request.Create().WithPath("/acceptance/payments/pay").UsingPost())
-                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError));
+                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
             // when
             var broker = new PaymobCashInBroker(_fixture.HttpClient, null!, _fixture.Options);
             var invocation = FluentActions.Awaiting(() => func(broker));
 
             // then
-            invocation.Should()
-                .Throw<HttpRequestException>()
-#if NET5_0_OR_GREATER
-                .And.StatusCode.Should().Be(HttpStatusCode.InternalServerError)
-#endif
-                ;
+            _ShouldThrowPaymobRequestException(invocation, (int) HttpStatusCode.InternalServerError, body);
         }
     }
 }

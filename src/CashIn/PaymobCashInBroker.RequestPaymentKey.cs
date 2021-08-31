@@ -19,7 +19,10 @@ namespace X.Paymob.CashIn {
             var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payment_keys");
             var internalRequest = new CashInPaymentKeyInternalRequest(request, authToken, _config.ExpirationPeriod);
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                await PaymobRequestException.ThrowFor(response);
+
             return (await response.Content.ReadFromJsonAsync<CashInPaymentKeyResponse>())!;
         }
     }

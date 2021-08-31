@@ -3,7 +3,6 @@
 // See the LICENSE.txt file in the project root for full license information.
 
 using System.Net;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -53,27 +52,23 @@ namespace CashIn.Tests.Unit {
         }
 
         [Fact]
-        public void should_throw_http_request_exception_when_request_payment_key_not_success() {
+        public async Task should_throw_http_request_exception_when_request_payment_key_not_success() {
             // given
             var request = _fixture.AutoFixture.Create<CashInPaymentKeyRequest>();
             var (authenticator, _) = _SetupGentAuthenticationToken();
+            var body = _fixture.AutoFixture.Create<string>();
 
             _fixture.Server
                 .Given(Request.Create().WithPath("/acceptance/payment_keys").UsingPost())
-                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError));
+                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
             // when
             var broker = new PaymobCashInBroker(_fixture.HttpClient, authenticator, _fixture.Options);
             var invocation = FluentActions.Awaiting(() => broker.RequestPaymentKeyAsync(request));
 
             // then
-            invocation.Should()
-                .Throw<HttpRequestException>()
-#if NET5_0_OR_GREATER
-                .And.StatusCode.Should().Be(HttpStatusCode.InternalServerError)
-#endif
-                ;
-            _ = authenticator.Received(1).GetAuthenticationTokenAsync();
+            _ShouldThrowPaymobRequestException(invocation, (int) HttpStatusCode.InternalServerError, body);
+            await authenticator.Received(1).GetAuthenticationTokenAsync();
         }
 
         private static CashInPaymentKeyRequest _GetPaymentKeyRequest(int? expiration) {

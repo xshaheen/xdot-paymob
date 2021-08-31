@@ -26,7 +26,10 @@ namespace X.Paymob.CashIn {
             };
 
             HttpResponseMessage response = await _httpClient.SendAsync(requestMessage);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                await PaymobRequestException.ThrowFor(response);
+
             return await response.Content.ReadFromJsonAsync<CashInTransactionsPage>();
         }
 
@@ -43,7 +46,10 @@ namespace X.Paymob.CashIn {
             };
 
             HttpResponseMessage response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                await PaymobRequestException.ThrowFor(response);
+
             return await response.Content.ReadFromJsonAsync<CashInTransaction>();
         }
     }

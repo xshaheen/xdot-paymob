@@ -66,7 +66,10 @@ namespace X.Paymob.CashIn {
         private async Task<TResponse> _PayAsync<TResponse>(CashInPayRequest request) {
             var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payments/pay");
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                await PaymobRequestException.ThrowFor(response);
+
             return (await response.Content.ReadFromJsonAsync<TResponse>())!;
         }
     }

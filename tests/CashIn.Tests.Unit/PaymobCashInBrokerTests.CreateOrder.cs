@@ -4,13 +4,11 @@
 
 using System;
 using System.Net;
-using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AutoFixture;
 using FluentAssertions;
 using NSubstitute;
-using Tynamix.ObjectFiller;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
@@ -48,35 +46,31 @@ namespace CashIn.Tests.Unit {
         }
 
         [Fact]
-        public void should_throw_http_request_exception_when_create_order_request_not_success() {
+        public async Task should_throw_http_request_exception_when_create_order_request_not_success() {
             // given
             var request = _CreateOrderRequest();
             var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
             var token = _fixture.AutoFixture.Create<string>();
             authenticator.GetAuthenticationTokenAsync().Returns(token);
+            var body = _fixture.AutoFixture.Create<string>();
 
             _fixture.Server
                 .Given(Request.Create().WithPath("/ecommerce/orders").UsingPost())
-                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError));
+                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
             // when
             var broker = new PaymobCashInBroker(_fixture.HttpClient, authenticator, _fixture.Options);
             var invocation = FluentActions.Awaiting(() => broker.CreateOrderAsync(request));
 
             // then
-            invocation.Should()
-                .Throw<HttpRequestException>()
-#if NET
-                .And.StatusCode.Should().Be(HttpStatusCode.InternalServerError)
-#endif
-                ;
-            _ = authenticator.Received(1).GetAuthenticationTokenAsync();
+            _ShouldThrowPaymobRequestException(invocation, (int) HttpStatusCode.InternalServerError, body);
+            await authenticator.Received(1).GetAuthenticationTokenAsync();
         }
 
-        private static CashInCreateOrderRequest _CreateOrderRequest() {
+        private CashInCreateOrderRequest _CreateOrderRequest() {
             return CashInCreateOrderRequest.CreateOrder(
-                amountCents: new IntRange(min: 10_000, max: 100_000).GetValue(),
-                currency: new MnemonicString(wordCount: 3).GetValue(),
+                amountCents: new Random().Next(10_000, 100_000),
+                currency: _fixture.AutoFixture.Create<string>(),
                 merchantOrderId: Guid.NewGuid().ToString()
             );
         }

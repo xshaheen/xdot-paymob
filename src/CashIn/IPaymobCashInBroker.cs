@@ -3,7 +3,6 @@
 // See the LICENSE.txt file in the project root for full license information.
 
 using System.Diagnostics.Contracts;
-using System.Net.Http;
 using System.Threading.Tasks;
 using X.Paymob.CashIn.Models.Callback;
 using X.Paymob.CashIn.Models.Orders;
@@ -13,42 +12,42 @@ using X.Paymob.CashIn.Models.Transactions;
 namespace X.Paymob.CashIn {
     public interface IPaymobCashInBroker {
         /// <summary>Create order. Order is a logical container for a transaction(s).</summary>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInCreateOrderResponse> CreateOrderAsync(CashInCreateOrderRequest request);
 
         /// <summary>
         /// Get payment key which is used to authenticate payment request and verifying transaction
         /// request metadata.
         /// </summary>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInPaymentKeyResponse> RequestPaymentKeyAsync(CashInPaymentKeyRequest request);
 
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInWalletPayResponse> CreateWalletPayAsync(string paymentKey, string phoneNumber);
 
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInKioskPayResponse> CreateKioskPayAsync(string paymentKey);
 
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInCashCollectionPayResponse> CreateCashCollectionPayAsync(string paymentKey);
 
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInSavedTokenPayResponse> CreateSavedTokenPayAsync(string paymentKey, string savedToken);
 
         /// <summary>Get transactions page.</summary>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest request);
 
         /// <summary>Get transaction by id.</summary>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInTransaction?> GetTransactionAsync(string transactionId);
 
         /// <summary>Get order by id.</summary>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInOrder?> GetOrderAsync(string orderId);
 
         /// <summary>Get orders page.</summary>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="PaymobRequestException"></exception>
         [Pure] Task<CashInOrdersPage?> GetOrdersPageAsync(CashInOrdersPageRequest request);
 
         /// <summary>Validate the identity and integrity for "Paymob Accept"'s callback submission.</summary>

@@ -21,7 +21,8 @@ namespace X.Paymob.CashIn {
             var internalRequest = new CashInCreateOrderInternalRequest(authToken, request);
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest, _IgnoreNullOptions);
 
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+                await PaymobRequestException.ThrowFor(response);
 
             return (await response.Content.ReadFromJsonAsync<CashInCreateOrderResponse>())!;
         }

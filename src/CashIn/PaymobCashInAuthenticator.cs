@@ -36,7 +36,10 @@ namespace X.Paymob.CashIn {
             var requestUrl = Url.Combine(config.ApiBaseUrl, "auth/tokens");
             var request = new CashInAuthenticationTokenRequest { ApiKey = config.ApiKey };
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                await PaymobRequestException.ThrowFor(response);
+
             var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
             _Cache(content!.Token);
 
