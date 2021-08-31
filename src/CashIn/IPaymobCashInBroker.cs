@@ -36,7 +36,7 @@ namespace X.Paymob.CashIn {
 
         /// <summary>Get transactions page.</summary>
         /// <exception cref="PaymobRequestException"></exception>
-        [Pure] Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest request);
+        [Pure] Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest? request = null);
 
         /// <summary>Get transaction by id.</summary>
         /// <exception cref="PaymobRequestException"></exception>
@@ -48,7 +48,7 @@ namespace X.Paymob.CashIn {
 
         /// <summary>Get orders page.</summary>
         /// <exception cref="PaymobRequestException"></exception>
-        [Pure] Task<CashInOrdersPage?> GetOrdersPageAsync(CashInOrdersPageRequest request);
+        [Pure] Task<CashInOrdersPage?> GetOrdersPageAsync(CashInOrdersPageRequest? request = null);
 
         /// <summary>Validate the identity and integrity for "Paymob Accept"'s callback submission.</summary>
         /// <param name="concatenatedString">Object concatenated string.</param>

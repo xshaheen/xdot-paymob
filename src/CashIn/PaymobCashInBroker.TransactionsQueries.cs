@@ -11,11 +11,13 @@ using X.Paymob.CashIn.Models.Transactions;
 
 namespace X.Paymob.CashIn {
     public partial class PaymobCashInBroker {
-        public async Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest request) {
+        public async Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest? request = null) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
 
-            string requestUrl =
-                Url.Combine(_config.ApiBaseUrl, "acceptance/transactions/").SetQueryParams(request.Query);
+            string requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/transactions/");
+
+            if (request is not null)
+                requestUrl = requestUrl.SetQueryParams(request.Query);
 
             using var requestMessage = new HttpRequestMessage {
                 Method = HttpMethod.Get,
