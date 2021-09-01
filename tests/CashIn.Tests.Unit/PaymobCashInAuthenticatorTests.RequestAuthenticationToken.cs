@@ -56,7 +56,7 @@ namespace CashIn.Tests.Unit {
 
             _fixture.Server
                 .Given(Request.Create().WithPath("/auth/tokens").UsingPost().WithBody(requestJson))
-                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError));
+                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
             // when
             var authenticator =

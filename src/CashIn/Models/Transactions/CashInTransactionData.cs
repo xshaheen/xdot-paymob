@@ -42,14 +42,8 @@ namespace X.Paymob.CashIn.Models.Transactions {
         [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
         public DateTimeOffset CreatedAt { get; init; }
 
-        [JsonPropertyName("batch_no")]
-        public string BatchNo { get; init; } = default!;
-
         [JsonPropertyName("merchant")]
         public string Merchant { get; init; } = default!;
-
-        [JsonPropertyName("acq_response_code")]
-        public int AcqResponseCode { get; init; }
 
         [JsonPropertyName("message")]
         public string Message { get; init; } = default!;
@@ -59,9 +53,6 @@ namespace X.Paymob.CashIn.Models.Transactions {
 
         [JsonPropertyName("authorize_id")]
         public string AuthorizeId { get; init; } = default!;
-
-        [JsonPropertyName("migs_order")]
-        public string MigsOrder { get; init; } = default!;
 
         [JsonPropertyName("order_info")]
         public string OrderInfo { get; init; } = default!;
@@ -82,17 +73,26 @@ namespace X.Paymob.CashIn.Models.Transactions {
         [JsonPropertyName("receipt_no")]
         public string ReceiptNo { get; init; } = default!;
 
-        [JsonPropertyName("migs_transaction")]
-        public string MigsTransaction { get; init; } = default!;
-
         [JsonPropertyName("avs_acq_response_code")]
         public string AvsAcqResponseCode { get; init; } = default!;
 
         [JsonPropertyName("gateway_integration_pk")]
         public int GatewayIntegrationPk { get; init; }
 
+        [JsonPropertyName("batch_no")]
+        public int? BatchNo { get; init; }
+
         [JsonPropertyName("redirect_url")]
         public string? RedirectUrl { get; init; }
+
+        [JsonPropertyName("migs_transaction")]
+        public object? MigsTransaction { get; init; }
+
+        [JsonPropertyName("migs_order")]
+        public object? MigsOrder { get; init; }
+
+        [JsonPropertyName("acq_response_code")]
+        public object? AcqResponseCode { get; init; }
 
         [JsonExtensionData]
         public IDictionary<string, object?>? ExtensionData { get; init; }

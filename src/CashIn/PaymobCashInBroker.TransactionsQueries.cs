@@ -14,7 +14,7 @@ namespace X.Paymob.CashIn {
         public async Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest? request = null) {
             string authToken = await _authenticator.GetAuthenticationTokenAsync();
 
-            string requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/transactions/");
+            string requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/transactions");
 
             if (request is not null)
                 requestUrl = requestUrl.SetQueryParams(request.Query);

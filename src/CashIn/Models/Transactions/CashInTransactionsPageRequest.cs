@@ -19,7 +19,7 @@ namespace X.Paymob.CashIn.Models.Transactions {
 
         public CashInTransactionsPageRequest WithIndex(int index) {
             Query["page"] = index.ToString(CultureInfo.InvariantCulture);
-            
+
             return this;
         }
 
@@ -32,7 +32,6 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public CashInTransactionsPageRequest WithOrderId(string id) {
             if (!string.IsNullOrWhiteSpace(id))
                 Query["order_id"] = id;
-
 
             return this;
         }
