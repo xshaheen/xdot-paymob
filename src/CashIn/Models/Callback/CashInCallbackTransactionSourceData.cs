@@ -21,6 +21,10 @@ namespace X.Paymob.CashIn.Models.Callback {
         [JsonPropertyName("tenure")]
         public object? Tenure { get; init; }
 
+        /// <summary>Only if Wallet or Accept Kiosk.</summary>
+        [JsonPropertyName("phone_number")]
+        public string? PhoneNumber { get; init; }
+
         [JsonExtensionData]
         public IDictionary<string, object?>? ExtensionData { get; init; }
     }

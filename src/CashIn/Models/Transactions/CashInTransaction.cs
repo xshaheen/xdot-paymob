@@ -146,7 +146,7 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public object? OtherEndpointReference { get; init; }
 
         [JsonPropertyName("source_data")]
-        public CashInTransactionSourceData? CashInTransactionSourceData { get; init; }
+        public CashInTransactionSourceData? SourceData { get; init; }
 
         [JsonPropertyName("data")]
         public CashInTransactionData? Data { get; init; }
@@ -159,5 +159,21 @@ namespace X.Paymob.CashIn.Models.Transactions {
 
         [JsonExtensionData]
         public IDictionary<string, object?>? ExtensionData { get; }
+
+        public bool IsCard() {
+            return SourceData?.Type == "card";
+        }
+
+        public bool IsWallet() {
+            return SourceData?.Type == "wallet";
+        }
+
+        public bool IsCashCollection() {
+            return SourceData?.Type == "cash_present";
+        }
+
+        public bool IsAcceptKiosk() {
+            return SourceData?.Type == "aggregator";
+        }
     }
 }

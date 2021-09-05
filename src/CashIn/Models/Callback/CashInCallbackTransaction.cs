@@ -168,12 +168,20 @@ namespace X.Paymob.CashIn.Models.Callback {
         [JsonExtensionData]
         public IDictionary<string, object?>? ExtensionData { get; init; }
 
-        public bool IsSuccessful() {
-            return !Pending && Success;
+        public bool IsCard() {
+            return SourceData?.Type == "card";
         }
 
-        public string Serialize() {
-            return JsonSerializer.Serialize(this);
+        public bool IsWallet() {
+            return SourceData?.Type == "wallet";
+        }
+
+        public bool IsCashCollection() {
+            return SourceData?.Type == "cash_present";
+        }
+
+        public bool IsAcceptKiosk() {
+            return SourceData?.Type == "aggregator";
         }
 
         /// <summary>Return the concatenated string of transaction.</summary>
