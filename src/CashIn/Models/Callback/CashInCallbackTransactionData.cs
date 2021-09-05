@@ -12,16 +12,16 @@ namespace X.Paymob.CashIn.Models.Callback {
     [PublicAPI]
     public class CashInCallbackTransactionData {
         [JsonPropertyName("bill_reference")]
-        public int BillReference { get; init; }
+        public int? BillReference { get; init; }
 
         [JsonPropertyName("gateway_integration_pk")]
-        public int GatewayIntegrationPk { get; init; }
+        public int? GatewayIntegrationPk { get; init; }
 
         [JsonPropertyName("captured_amount")]
-        public decimal CapturedAmount { get; init; }
+        public decimal? CapturedAmount { get; init; }
 
         [JsonPropertyName("refunded_amount")]
-        public decimal RefundedAmount { get; init; }
+        public decimal? RefundedAmount { get; init; }
 
         [JsonPropertyName("transaction_no")]
         public string? TransactionNo { get; init; }

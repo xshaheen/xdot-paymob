@@ -12,72 +12,72 @@ namespace X.Paymob.CashIn.Models.Transactions {
     [PublicAPI]
     public class CashInTransactionData {
         [JsonPropertyName("refunded_amount")]
-        public decimal RefundedAmount { get; init; }
+        public decimal? RefundedAmount { get; init; }
 
         [JsonPropertyName("amount")]
-        public decimal Amount { get; init; }
+        public decimal? Amount { get; init; }
 
         [JsonPropertyName("authorised_amount")]
-        public decimal AuthorisedAmount { get; init; }
+        public decimal? AuthorisedAmount { get; init; }
 
         [JsonPropertyName("captured_amount")]
-        public decimal CapturedAmount { get; init; }
+        public decimal? CapturedAmount { get; init; }
 
         [JsonPropertyName("migs_result")]
-        public string MigsResult { get; init; } = default!;
+        public string? MigsResult { get; init; }
 
         [JsonPropertyName("avs_result_code")]
-        public string AvsResultCode { get; init; } = default!;
+        public string? AvsResultCode { get; init; }
 
         [JsonPropertyName("card_num")]
-        public string CardNum { get; init; } = default!;
+        public string? CardNum { get; init; }
 
         [JsonPropertyName("transaction_no")]
-        public string TransactionNo { get; init; } = default!;
+        public string? TransactionNo { get; init; }
 
         [JsonPropertyName("card_type")]
-        public string CardType { get; init; } = default!;
+        public string? CardType { get; init; }
 
         [JsonPropertyName("created_at")]
         [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
-        public DateTimeOffset CreatedAt { get; init; }
+        public DateTimeOffset? CreatedAt { get; init; }
 
         [JsonPropertyName("merchant")]
-        public string Merchant { get; init; } = default!;
+        public string? Merchant { get; init; }
 
         [JsonPropertyName("message")]
-        public string Message { get; init; } = default!;
+        public string? Message { get; init; }
 
         [JsonPropertyName("currency")]
-        public string Currency { get; init; } = default!;
+        public string? Currency { get; init; }
 
         [JsonPropertyName("authorize_id")]
-        public string AuthorizeId { get; init; } = default!;
+        public string? AuthorizeId { get; init; }
 
         [JsonPropertyName("order_info")]
-        public string OrderInfo { get; init; } = default!;
+        public string? OrderInfo { get; init; }
 
         /// <summary>WalletPayment | ...</summary>
         [JsonPropertyName("klass")]
-        public string Klass { get; init; } = default!;
+        public string? Klass { get; init; }
 
         [JsonPropertyName("txn_response_code")]
-        public string TxnResponseCode { get; init; } = default!;
+        public string? TxnResponseCode { get; init; }
 
         [JsonPropertyName("secure_hash")]
-        public string SecureHash { get; init; } = default!;
+        public string? SecureHash { get; init; }
 
         [JsonPropertyName("merchant_txn_ref")]
-        public string MerchantTxnRef { get; init; } = default!;
+        public string? MerchantTxnRef { get; init; }
 
         [JsonPropertyName("receipt_no")]
-        public string ReceiptNo { get; init; } = default!;
+        public string? ReceiptNo { get; init; }
 
         [JsonPropertyName("avs_acq_response_code")]
-        public string AvsAcqResponseCode { get; init; } = default!;
+        public string? AvsAcqResponseCode { get; init; }
 
         [JsonPropertyName("gateway_integration_pk")]
-        public int GatewayIntegrationPk { get; init; }
+        public int? GatewayIntegrationPk { get; init; }
 
         [JsonPropertyName("batch_no")]
         public int? BatchNo { get; init; }

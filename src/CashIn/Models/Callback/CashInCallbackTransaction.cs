@@ -139,16 +139,16 @@ namespace X.Paymob.CashIn.Models.Callback {
         public string? TerminalId { get; init; }
 
         [JsonPropertyName("data")]
-        public CashInCallbackTransactionData Data { get; init; } = default!;
+        public CashInCallbackTransactionData? Data { get; init; }
 
         [JsonPropertyName("order")]
-        public CashInCallbackTransactionOrder Order { get; init; } = default!;
+        public CashInCallbackTransactionOrder? Order { get; init; }
 
         [JsonPropertyName("payment_key_claims")]
-        public CashInPayPaymentKeyClaims PaymentKeyClaims { get; init; } = default!;
+        public CashInPayPaymentKeyClaims? PaymentKeyClaims { get; init; }
 
         [JsonPropertyName("source_data")]
-        public CashInCallbackTransactionSourceData SourceData { get; init; } = default!;
+        public CashInCallbackTransactionSourceData? SourceData { get; init; }
 
         [JsonPropertyName("transaction_processed_callback_responses")]
         public IReadOnlyList<TransactionProcessedCallbackResponse> TransactionProcessedCallbackResponses {
@@ -197,12 +197,12 @@ namespace X.Paymob.CashIn.Models.Callback {
                 toString(IsRefunded) +
                 toString(IsStandalonePayment) +
                 toString(IsVoided) +
-                Order.Id.ToString(CultureInfo.InvariantCulture) +
+                Order?.Id.ToString(CultureInfo.InvariantCulture) +
                 Owner.ToString(CultureInfo.InvariantCulture) +
                 toString(Pending) +
-                SourceData.Pan?.ToLowerInvariant() +
-                SourceData.SubType +
-                SourceData.Type?.ToLowerInvariant() +
+                SourceData?.Pan?.ToLowerInvariant() +
+                SourceData?.SubType +
+                SourceData?.Type?.ToLowerInvariant() +
                 toString(Success);
         }
     }

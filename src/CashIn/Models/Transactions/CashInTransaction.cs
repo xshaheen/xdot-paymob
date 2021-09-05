@@ -106,12 +106,6 @@ namespace X.Paymob.CashIn.Models.Transactions {
         [JsonPropertyName("terminal_id")]
         public string? TerminalId { get; init; }
 
-        [JsonPropertyName("converted_gross_amount")]
-        public string ConvertedGrossAmount { get; init; } = "0.0";
-
-        [JsonPropertyName("trx_settlement_curr")]
-        public string TrxSettlementCurr { get; init; } = default!;
-
         [JsonPropertyName("is_cashout")]
         public bool IsCashOut { get; init; }
 
@@ -130,6 +124,12 @@ namespace X.Paymob.CashIn.Models.Transactions {
         [JsonPropertyName("card_holder_bank")]
         public string? CardHolderBank { get; init; }
 
+        [JsonPropertyName("converted_gross_amount")]
+        public object? ConvertedGrossAmount { get; init; }
+
+        [JsonPropertyName("trx_settlement_curr")]
+        public object? TrxSettlementCurr { get; init; }
+
         [JsonPropertyName("parent_transaction")]
         public object? ParentTransaction { get; init; }
 
@@ -146,16 +146,16 @@ namespace X.Paymob.CashIn.Models.Transactions {
         public object? OtherEndpointReference { get; init; }
 
         [JsonPropertyName("source_data")]
-        public CashInTransactionSourceData CashInTransactionSourceData { get; init; } = default!;
+        public CashInTransactionSourceData? CashInTransactionSourceData { get; init; }
 
         [JsonPropertyName("data")]
-        public CashInTransactionData Data { get; init; } = default!;
+        public CashInTransactionData? Data { get; init; }
 
         [JsonPropertyName("order")]
-        public CashInOrder Order { get; init; } = default!;
+        public CashInOrder? Order { get; init; }
 
         [JsonPropertyName("billing_data")]
-        public CashInTransactionBillingData BillingData { get; init; } = default!;
+        public CashInTransactionBillingData? BillingData { get; init; }
 
         [JsonExtensionData]
         public IDictionary<string, object?>? ExtensionData { get; }
