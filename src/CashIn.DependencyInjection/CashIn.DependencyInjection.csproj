@@ -8,12 +8,12 @@
     <PackageId>Xdot.Paymob.CashIn.DependencyInjection</PackageId>
     <Description>Xdot.Paymob.CashIn extensions for Dependency Injection. Xdot.Paymob.CashIn is an SDK to help you integrate with the Paymob’s payment gateway.</Description>
     <PackageTags>xdot,paymob,accept,sdk,payment,cashin</PackageTags>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- <PackageReadmeFile>README.md</PackageReadmeFile> -->
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+  <!-- <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup> -->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />

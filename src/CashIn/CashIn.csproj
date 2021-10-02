@@ -8,12 +8,12 @@
     <PackageId>Xdot.Paymob.CashIn</PackageId>
     <Description>An SDK to help you integrate with the Paymob’s payment gateway.</Description>
     <PackageTags>xdot,paymob,accept,sdk,payment,cashin</PackageTags>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- <PackageReadmeFile>README.md</PackageReadmeFile> -->
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+  <!-- <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup> -->
 
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="3.2.0" />
