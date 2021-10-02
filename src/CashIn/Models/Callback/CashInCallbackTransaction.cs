@@ -142,7 +142,7 @@ namespace X.Paymob.CashIn.Models.Callback {
         public CashInCallbackTransactionData? Data { get; init; }
 
         [JsonPropertyName("order")]
-        public CashInCallbackTransactionOrder? Order { get; init; }
+        public CashInCallbackTransactionOrder Order { get; init; } = default!;
 
         [JsonPropertyName("payment_key_claims")]
         public CashInPayPaymentKeyClaims? PaymentKeyClaims { get; init; }
