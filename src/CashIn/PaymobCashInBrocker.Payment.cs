@@ -7,7 +7,7 @@ using Ardalis.GuardClauses;
 using Flurl;
 using X.Paymob.CashIn.Models.Payment;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public partial class PaymobCashInBroker {
     public string CreateIframeSrc(string iframeId, string token) {

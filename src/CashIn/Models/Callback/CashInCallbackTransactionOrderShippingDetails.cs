@@ -5,7 +5,7 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Callback; 
+namespace X.Paymob.CashIn.Models.Callback;
 
 [PublicAPI]
 public class CashInCallbackTransactionOrderShippingDetails {

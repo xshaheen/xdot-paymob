@@ -5,7 +5,7 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Transactions; 
+namespace X.Paymob.CashIn.Models.Transactions;
 
 [PublicAPI]
 public class CashInTransactionSourceData {

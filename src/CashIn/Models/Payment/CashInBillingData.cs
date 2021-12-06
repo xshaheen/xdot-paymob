@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using Ardalis.GuardClauses;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Payment; 
+namespace X.Paymob.CashIn.Models.Payment;
 
 [PublicAPI]
 public class CashInBillingData {

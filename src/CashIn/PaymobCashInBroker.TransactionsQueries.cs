@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 using Flurl;
 using X.Paymob.CashIn.Models.Transactions;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public partial class PaymobCashInBroker {
     public async Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest? request = null) {

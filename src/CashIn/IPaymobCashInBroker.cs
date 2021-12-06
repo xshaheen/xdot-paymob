@@ -8,7 +8,7 @@ using X.Paymob.CashIn.Models.Orders;
 using X.Paymob.CashIn.Models.Payment;
 using X.Paymob.CashIn.Models.Transactions;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public interface IPaymobCashInBroker {
     /// <summary>Create order. Order is a logical container for a transaction(s).</summary>

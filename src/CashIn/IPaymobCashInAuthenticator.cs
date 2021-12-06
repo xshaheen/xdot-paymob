@@ -5,7 +5,7 @@
 using System.Diagnostics.Contracts;
 using X.Paymob.CashIn.Models.Auth;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public interface IPaymobCashInAuthenticator {
     /// <summary>Request a new authentication token.</summary>

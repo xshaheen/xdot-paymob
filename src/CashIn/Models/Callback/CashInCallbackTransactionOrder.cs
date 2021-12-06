@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 using X.Paymob.CashIn.Models.Orders;
 
-namespace X.Paymob.CashIn.Models.Callback; 
+namespace X.Paymob.CashIn.Models.Callback;
 
 [PublicAPI]
 public class CashInCallbackTransactionOrder {

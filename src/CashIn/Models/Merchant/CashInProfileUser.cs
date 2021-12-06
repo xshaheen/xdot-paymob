@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 
-namespace X.Paymob.CashIn.Models.Merchant; 
+namespace X.Paymob.CashIn.Models.Merchant;
 
 [PublicAPI]
 public class CashInProfileUser {

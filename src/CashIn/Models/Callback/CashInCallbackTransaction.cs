@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 using X.Paymob.CashIn.Models.Payment;
 
-namespace X.Paymob.CashIn.Models.Callback; 
+namespace X.Paymob.CashIn.Models.Callback;
 
 [PublicAPI]
 public class CashInCallbackTransaction {
@@ -187,7 +187,7 @@ public class CashInCallbackTransaction {
         static string toString(bool value) => value ? "true" : "false";
 
         string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
+        string createdAtWithoutQuotes = createdAtString[1..^1];
 
         return
             AmountCents.ToString(CultureInfo.InvariantCulture) +

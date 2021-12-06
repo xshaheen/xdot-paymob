@@ -5,7 +5,7 @@
 using Microsoft.Extensions.Options;
 using X.Paymob.CashIn.Models;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public partial class PaymobCashInBroker : IPaymobCashInBroker {
     private readonly IPaymobCashInAuthenticator _authenticator;

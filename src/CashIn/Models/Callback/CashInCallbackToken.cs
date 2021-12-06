@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 
-namespace X.Paymob.CashIn.Models.Callback; 
+namespace X.Paymob.CashIn.Models.Callback;
 
 [PublicAPI]
 public class CashInCallbackToken {
@@ -45,7 +45,7 @@ public class CashInCallbackToken {
     /// <summary>Return the concatenated string of transaction.</summary>
     public string ToConcatenatedString() {
         string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
+        string createdAtWithoutQuotes = createdAtString[1..^1];
 
         return
             CardSubtype +

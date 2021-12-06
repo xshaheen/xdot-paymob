@@ -5,7 +5,7 @@
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Models.Constants;
 
-namespace X.Paymob.CashIn.Models.Orders; 
+namespace X.Paymob.CashIn.Models.Orders;
 
 [PublicAPI]
 public class CashInOrdersPageRequest {

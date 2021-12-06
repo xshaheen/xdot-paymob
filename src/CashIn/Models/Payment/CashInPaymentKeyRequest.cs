@@ -4,7 +4,7 @@
 
 using Ardalis.GuardClauses;
 
-namespace X.Paymob.CashIn.Models.Payment; 
+namespace X.Paymob.CashIn.Models.Payment;
 
 public class CashInPaymentKeyRequest {
     public CashInPaymentKeyRequest(

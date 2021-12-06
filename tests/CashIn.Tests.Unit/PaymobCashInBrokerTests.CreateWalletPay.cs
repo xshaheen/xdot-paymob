@@ -8,7 +8,7 @@ using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
 using X.Paymob.CashIn.Models.Payment;
 
-namespace CashIn.Tests.Unit; 
+namespace CashIn.Tests.Unit;
 
 public partial class PaymobCashInBrokerTests {
     [Fact]

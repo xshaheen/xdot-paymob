@@ -4,7 +4,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace X.Paymob.CashIn.Models.Payment; 
+namespace X.Paymob.CashIn.Models.Payment;
 
 internal class CashInPaymentKeyInternalRequest {
     public CashInPaymentKeyInternalRequest(

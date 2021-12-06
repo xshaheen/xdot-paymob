@@ -4,7 +4,7 @@
 
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Constants; 
+namespace X.Paymob.CashIn.Models.Constants;
 
 [PublicAPI]
 public static class CashInStatuses {

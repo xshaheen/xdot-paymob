@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using X.Paymob.CashIn.Internal;
 
-namespace CashIn.Tests.Unit.Internal; 
+namespace CashIn.Tests.Unit.Internal;
 
 public class AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverterTests {
     public static readonly TheoryData<DateTimeOffset, string> WriteTestsData = new() {

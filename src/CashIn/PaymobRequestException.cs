@@ -29,7 +29,8 @@ public class PaymobRequestException : Exception {
 
         try {
             body = await response.Content.ReadAsStringAsync();
-        } catch {
+        }
+        catch {
             body = null;
         }
 

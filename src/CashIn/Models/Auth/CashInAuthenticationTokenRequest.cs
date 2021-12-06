@@ -5,7 +5,7 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Auth; 
+namespace X.Paymob.CashIn.Models.Auth;
 
 [PublicAPI]
 internal class CashInAuthenticationTokenRequest {

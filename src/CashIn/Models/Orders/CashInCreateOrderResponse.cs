@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 
-namespace X.Paymob.CashIn.Models.Orders; 
+namespace X.Paymob.CashIn.Models.Orders;
 
 [PublicAPI]
 public class CashInCreateOrderResponse {

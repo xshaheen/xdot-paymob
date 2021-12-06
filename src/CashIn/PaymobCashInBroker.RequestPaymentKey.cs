@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 using Flurl;
 using X.Paymob.CashIn.Models.Payment;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public partial class PaymobCashInBroker {
     /// <summary>

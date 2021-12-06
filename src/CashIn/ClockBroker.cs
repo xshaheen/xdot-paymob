@@ -2,7 +2,7 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public class ClockBroker : IClockBroker {
     public long TicksNow =>

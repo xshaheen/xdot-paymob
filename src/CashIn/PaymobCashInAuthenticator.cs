@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Auth;
 
-namespace X.Paymob.CashIn; 
+namespace X.Paymob.CashIn;
 
 public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
     private static readonly long _MaxTicks = TimeSpan.FromMinutes(59).Ticks;

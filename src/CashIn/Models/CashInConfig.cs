@@ -5,7 +5,7 @@
 using System.ComponentModel.DataAnnotations;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models; 
+namespace X.Paymob.CashIn.Models;
 
 [PublicAPI]
 public record CashInConfig {
