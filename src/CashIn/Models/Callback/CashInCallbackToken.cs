@@ -45,7 +45,7 @@ public class CashInCallbackToken {
     /// <summary>Return the concatenated string of transaction.</summary>
     public string ToConcatenatedString() {
         string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-        string createdAtWithoutQuotes = createdAtString[1..^1];
+        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
 
         return
             CardSubtype +

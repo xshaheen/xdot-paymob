@@ -22,8 +22,9 @@ public partial class PaymobCashInBroker {
         var internalRequest = new CashInCreateOrderInternalRequest(authToken, request);
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest, _IgnoreNullOptions);
 
-        if (!response.IsSuccessStatusCode)
-            await PaymobRequestException.ThrowFor(response);
+        if (!response.IsSuccessStatusCode) {
+            await PaymobRequestException.ThrowAsync(response);
+        }
 
         return (await response.Content.ReadFromJsonAsync<CashInCreateOrderResponse>())!;
     }

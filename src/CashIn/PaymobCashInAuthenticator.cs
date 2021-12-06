@@ -35,8 +35,9 @@ public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
         var request = new CashInAuthenticationTokenRequest { ApiKey = config.ApiKey };
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
 
-        if (!response.IsSuccessStatusCode)
-            await PaymobRequestException.ThrowFor(response);
+        if (!response.IsSuccessStatusCode) {
+            await PaymobRequestException.ThrowAsync(response);
+        }
 
         var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
         _Cache(content!.Token);
@@ -45,8 +46,9 @@ public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
     }
 
     public async ValueTask<string> GetAuthenticationTokenAsync() {
-        if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks)
+        if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks) {
             return _token;
+        }
 
         CashInAuthenticationTokenResponse response = await RequestAuthenticationTokenAsync();
 
@@ -58,6 +60,7 @@ public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
         _createdAtTicks = _clockBroker.TicksNow;
     }
 
+    // TODO: not thread safe
     private void _InvalidateCache() {
         _token = null;
         _createdAtTicks = null;

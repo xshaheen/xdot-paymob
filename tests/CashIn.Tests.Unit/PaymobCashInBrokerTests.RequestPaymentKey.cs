@@ -42,7 +42,7 @@ public partial class PaymobCashInBrokerTests {
 
         // then
         JsonSerializer.Serialize(result).Should().Be(responseJson);
-        _ = authenticator.Received(1).GetAuthenticationTokenAsync();
+        _ = await authenticator.Received(1).GetAuthenticationTokenAsync();
     }
 
     [Fact]

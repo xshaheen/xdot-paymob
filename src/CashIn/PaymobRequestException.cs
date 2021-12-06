@@ -20,7 +20,7 @@ public class PaymobRequestException : Exception {
         Body = body;
     }
 
-    public static async Task ThrowFor(HttpResponseMessage response) {
+    public static async Task ThrowAsync(HttpResponseMessage response) {
         if (response.IsSuccessStatusCode) {
             return;
         }

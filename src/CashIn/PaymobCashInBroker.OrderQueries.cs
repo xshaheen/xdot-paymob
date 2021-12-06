@@ -14,8 +14,9 @@ public partial class PaymobCashInBroker {
 
         string requestUrl = Url.Combine(_config.ApiBaseUrl, "ecommerce/orders");
 
-        if (request is not null)
+        if (request is not null) {
             requestUrl = requestUrl.SetQueryParams(request.Query);
+        }
 
         using var requestMessage = new HttpRequestMessage {
             Method = HttpMethod.Get,
@@ -27,8 +28,9 @@ public partial class PaymobCashInBroker {
 
         HttpResponseMessage response = await _httpClient.SendAsync(requestMessage);
 
-        if (!response.IsSuccessStatusCode)
-            await PaymobRequestException.ThrowFor(response);
+        if (!response.IsSuccessStatusCode) {
+            await PaymobRequestException.ThrowAsync(response);
+        }
 
         return await response.Content.ReadFromJsonAsync<CashInOrdersPage>();
     }
@@ -47,8 +49,9 @@ public partial class PaymobCashInBroker {
 
         HttpResponseMessage response = await _httpClient.SendAsync(request);
 
-        if (!response.IsSuccessStatusCode)
-            await PaymobRequestException.ThrowFor(response);
+        if (!response.IsSuccessStatusCode) {
+            await PaymobRequestException.ThrowAsync(response);
+        }
 
         return await response.Content.ReadFromJsonAsync<CashInOrder>();
     }

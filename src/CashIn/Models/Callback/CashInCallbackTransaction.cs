@@ -187,7 +187,7 @@ public class CashInCallbackTransaction {
         static string toString(bool value) => value ? "true" : "false";
 
         string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-        string createdAtWithoutQuotes = createdAtString[1..^1];
+        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
 
         return
             AmountCents.ToString(CultureInfo.InvariantCulture) +
@@ -203,7 +203,7 @@ public class CashInCallbackTransaction {
             toString(IsRefunded) +
             toString(IsStandalonePayment) +
             toString(IsVoided) +
-            Order?.Id.ToString(CultureInfo.InvariantCulture) +
+            Order.Id.ToString(CultureInfo.InvariantCulture) +
             Owner.ToString(CultureInfo.InvariantCulture) +
             toString(Pending) +
             SourceData?.Pan?.ToLowerInvariant() +

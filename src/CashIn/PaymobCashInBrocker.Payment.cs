@@ -66,8 +66,9 @@ public partial class PaymobCashInBroker {
         var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payments/pay");
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
 
-        if (!response.IsSuccessStatusCode)
-            await PaymobRequestException.ThrowFor(response);
+        if (!response.IsSuccessStatusCode) {
+            await PaymobRequestException.ThrowAsync(response);
+        }
 
         return (await response.Content.ReadFromJsonAsync<TResponse>())!;
     }
