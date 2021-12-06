@@ -3,9 +3,12 @@
 // See the LICENSE.txt file in the project root for full license information.
 
 using System.Net;
+using System.Runtime.Serialization;
+using Ardalis.GuardClauses;
 
 namespace X.Paymob.CashIn;
 
+[Serializable]
 public class PaymobRequestException : Exception {
     /// <summary>Gets the HTTP response status code.</summary>
     /// <value>An HTTP status code.</value>
@@ -18,6 +21,21 @@ public class PaymobRequestException : Exception {
     public PaymobRequestException(string? message, HttpStatusCode statusCode, string? body) : base(message) {
         StatusCode = statusCode;
         Body = body;
+    }
+
+    protected PaymobRequestException(SerializationInfo info, StreamingContext streamingContext) : base(info, streamingContext) {
+        Guard.Against.Null(info, nameof(info));
+
+        StatusCode = (HttpStatusCode) info.GetInt32(nameof(StatusCode));
+        Body = info.GetString(nameof(Body));
+    }
+
+    public override void GetObjectData(SerializationInfo info, StreamingContext context) {
+        Guard.Against.Null(info, nameof(info));
+
+        base.GetObjectData(info, context);
+        info.AddValue(nameof(StatusCode), (int) StatusCode);
+        info.AddValue(nameof(Body), Body);
     }
 
     public static async Task ThrowAsync(HttpResponseMessage response) {
