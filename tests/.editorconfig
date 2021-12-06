@@ -1,13 +1,13 @@
-[*.{cs, csx, cake, vb, vbx, razor, cpp, c}]
+# Custom
 
-# Identifiers should not contain underscores
-dotnet_diagnostic.CA1707.severity = none
-
-# Naming rule violation
-dotnet_diagnostic.IDE1006.severity = none
-
-# VSTHRD200: Use "Async" suffix for async methods
-dotnet_diagnostic.VSTHRD200.severity = none
-
-# CA2012: Use ValueTasks correctly
-dotnet_diagnostic.CA2012.severity = none
+[*.cs]
+# CA1707: Identifiers should not contain underscores. Justification: Underscores are okay for tests
+dotnet_diagnostic.ca1707.severity = none
+# IDE1006: Identifiers should be capitalized. Justification: Not capitalized are okay for tests
+dotnet_diagnostic.ide1006.severity = none
+# IDE0022: Use expression body for methods. Justification: Noisy for tests
+dotnet_diagnostic.ide0022.severity = none
+# VSTHRD200: Use "Async" suffix for async methods  Justification: No async suffixes are okay for tests
+dotnet_diagnostic.vsthrD200.severity = none
+# CA1014: Mark assemblies with CLSCompliantAttribute
+dotnet_diagnostic.ca1014.severity = none

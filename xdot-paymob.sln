@@ -5,10 +5,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashIn.DependencyInjection", "src\CashIn.DependencyInjection\CashIn.DependencyInjection.csproj", "{F302B066-BEAB-49D4-AE44-426B48D677BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{50B0E935-53F5-4E0A-861C-E545A0D8E727}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashIn.Tests.Unit", "tests\CashIn.Tests.Unit\CashIn.Tests.Unit.csproj", "{96252974-961F-42F2-A9E1-17B5D97B3FE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{EBC982E8-D911-4458-8731-72CE82200153}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{832A7620-FA08-4E2E-9B41-3180C25F8578}"
 ProjectSection(SolutionItems) = preProject
@@ -16,9 +22,10 @@ ProjectSection(SolutionItems) = preProject
 	.gitattributes = .gitattributes
 	.gitignore = .gitignore
 	Directory.Build.props = Directory.Build.props
-	NuGet.config = NuGet.config
+	nuget.configx = nuget.configx
 	readme.md = readme.md
 	LICENSE.txt = LICENSE.txt
+	omnisharp.json = omnisharp.json
 EndProjectSection
 EndProject
 Global
