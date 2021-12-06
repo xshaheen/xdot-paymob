@@ -9,7 +9,9 @@
   </ItemGroup>
 
   <ItemGroup Label="Global usings">
+    <Using Include="AutoFixture" />
     <Using Include="FluentAssertions" />
+    <Using Include="NSubstitute" />
     <Using Include="Xunit" />
     <Using Include="Xunit.Abstractions" />
   </ItemGroup>

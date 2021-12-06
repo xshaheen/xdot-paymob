@@ -2,75 +2,73 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Ardalis.GuardClauses;
 using Flurl;
 using X.Paymob.CashIn.Models.Payment;
 
-namespace X.Paymob.CashIn {
-    public partial class PaymobCashInBroker {
-        public string CreateIframeSrc(string iframeId, string token) {
-            return Url
-                .Combine(_config.IframeBaseUrl, iframeId)
-                .SetQueryParams(new { payment_token = token });
-        }
+namespace X.Paymob.CashIn; 
 
-        public async Task<CashInWalletPayResponse> CreateWalletPayAsync(string paymentKey, string phoneNumber) {
-            Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
-            Guard.Against.NullOrEmpty(phoneNumber, nameof(phoneNumber));
+public partial class PaymobCashInBroker {
+    public string CreateIframeSrc(string iframeId, string token) {
+        return Url
+            .Combine(_config.IframeBaseUrl, iframeId)
+            .SetQueryParams(new { payment_token = token });
+    }
 
-            var request = new CashInPayRequest {
-                Source = CashInSource.Wallet(phoneNumber),
-                PaymentToken = paymentKey,
-            };
+    public async Task<CashInWalletPayResponse> CreateWalletPayAsync(string paymentKey, string phoneNumber) {
+        Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
+        Guard.Against.NullOrEmpty(phoneNumber, nameof(phoneNumber));
 
-            return await _PayAsync<CashInWalletPayResponse>(request);
-        }
+        var request = new CashInPayRequest {
+            Source = CashInSource.Wallet(phoneNumber),
+            PaymentToken = paymentKey,
+        };
 
-        public async Task<CashInKioskPayResponse> CreateKioskPayAsync(string paymentKey) {
-            Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
+        return await _PayAsync<CashInWalletPayResponse>(request);
+    }
 
-            var request = new CashInPayRequest {
-                Source = CashInSource.Kiosk,
-                PaymentToken = paymentKey,
-            };
+    public async Task<CashInKioskPayResponse> CreateKioskPayAsync(string paymentKey) {
+        Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
 
-            return await _PayAsync<CashInKioskPayResponse>(request);
-        }
+        var request = new CashInPayRequest {
+            Source = CashInSource.Kiosk,
+            PaymentToken = paymentKey,
+        };
 
-        public async Task<CashInCashCollectionPayResponse> CreateCashCollectionPayAsync(string paymentKey) {
-            Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
+        return await _PayAsync<CashInKioskPayResponse>(request);
+    }
 
-            var request = new CashInPayRequest {
-                Source = CashInSource.Cash,
-                PaymentToken = paymentKey,
-            };
+    public async Task<CashInCashCollectionPayResponse> CreateCashCollectionPayAsync(string paymentKey) {
+        Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
 
-            return await _PayAsync<CashInCashCollectionPayResponse>(request);
-        }
+        var request = new CashInPayRequest {
+            Source = CashInSource.Cash,
+            PaymentToken = paymentKey,
+        };
 
-        public async Task<CashInSavedTokenPayResponse> CreateSavedTokenPayAsync(string paymentKey, string savedToken) {
-            Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
-            Guard.Against.NullOrEmpty(savedToken, nameof(savedToken));
+        return await _PayAsync<CashInCashCollectionPayResponse>(request);
+    }
 
-            var request = new CashInPayRequest {
-                Source = CashInSource.SavedToken(savedToken),
-                PaymentToken = paymentKey,
-            };
+    public async Task<CashInSavedTokenPayResponse> CreateSavedTokenPayAsync(string paymentKey, string savedToken) {
+        Guard.Against.NullOrEmpty(paymentKey, nameof(paymentKey));
+        Guard.Against.NullOrEmpty(savedToken, nameof(savedToken));
 
-            return await _PayAsync<CashInSavedTokenPayResponse>(request);
-        }
+        var request = new CashInPayRequest {
+            Source = CashInSource.SavedToken(savedToken),
+            PaymentToken = paymentKey,
+        };
 
-        private async Task<TResponse> _PayAsync<TResponse>(CashInPayRequest request) {
-            var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payments/pay");
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
+        return await _PayAsync<CashInSavedTokenPayResponse>(request);
+    }
 
-            if (!response.IsSuccessStatusCode)
-                await PaymobRequestException.ThrowFor(response);
+    private async Task<TResponse> _PayAsync<TResponse>(CashInPayRequest request) {
+        var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payments/pay");
+        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
 
-            return (await response.Content.ReadFromJsonAsync<TResponse>())!;
-        }
+        if (!response.IsSuccessStatusCode)
+            await PaymobRequestException.ThrowFor(response);
+
+        return (await response.Content.ReadFromJsonAsync<TResponse>())!;
     }
 }

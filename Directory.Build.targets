@@ -1,0 +1,12 @@
+<Project>
+
+  <Target Name="Versioning" BeforeTargets="MinVer">
+    <PropertyGroup Label="Build">
+      <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
+      <MinVerVerbosity>normal</MinVerVerbosity>
+      <MinVerTagPrefix>v</MinVerTagPrefix>
+      <!--<MinVerTagPrefix>$(PackageId)-</MinVerTagPrefix>-->
+    </PropertyGroup>
+  </Target>
+
+</Project>

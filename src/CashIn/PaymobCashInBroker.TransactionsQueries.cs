@@ -2,57 +2,54 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Flurl;
 using X.Paymob.CashIn.Models.Transactions;
 
-namespace X.Paymob.CashIn {
-    public partial class PaymobCashInBroker {
-        public async Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest? request = null) {
-            string authToken = await _authenticator.GetAuthenticationTokenAsync();
+namespace X.Paymob.CashIn; 
 
-            string requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/transactions");
+public partial class PaymobCashInBroker {
+    public async Task<CashInTransactionsPage?> GetTransactionsPageAsync(CashInTransactionsPageRequest? request = null) {
+        string authToken = await _authenticator.GetAuthenticationTokenAsync();
 
-            if (request is not null)
-                requestUrl = requestUrl.SetQueryParams(request.Query);
+        string requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/transactions");
 
-            using var requestMessage = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(requestUrl, UriKind.Absolute),
-                Headers = {
-                    { "Authorization", $"Bearer {authToken}" },
-                },
-            };
+        if (request is not null)
+            requestUrl = requestUrl.SetQueryParams(request.Query);
 
-            HttpResponseMessage response = await _httpClient.SendAsync(requestMessage);
+        using var requestMessage = new HttpRequestMessage {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(requestUrl, UriKind.Absolute),
+            Headers = {
+                { "Authorization", $"Bearer {authToken}" },
+            },
+        };
 
-            if (!response.IsSuccessStatusCode)
-                await PaymobRequestException.ThrowFor(response);
+        HttpResponseMessage response = await _httpClient.SendAsync(requestMessage);
 
-            return await response.Content.ReadFromJsonAsync<CashInTransactionsPage>();
-        }
+        if (!response.IsSuccessStatusCode)
+            await PaymobRequestException.ThrowFor(response);
 
-        public async Task<CashInTransaction?> GetTransactionAsync(string transactionId) {
-            string authToken = await _authenticator.GetAuthenticationTokenAsync();
-            string requestUrl = Url.Combine(_config.ApiBaseUrl, $"acceptance/transactions/{transactionId}");
+        return await response.Content.ReadFromJsonAsync<CashInTransactionsPage>();
+    }
 
-            using var request = new HttpRequestMessage {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(requestUrl, UriKind.Absolute),
-                Headers = {
-                    { "Authorization", $"Bearer {authToken}" },
-                },
-            };
+    public async Task<CashInTransaction?> GetTransactionAsync(string transactionId) {
+        string authToken = await _authenticator.GetAuthenticationTokenAsync();
+        string requestUrl = Url.Combine(_config.ApiBaseUrl, $"acceptance/transactions/{transactionId}");
 
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
+        using var request = new HttpRequestMessage {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(requestUrl, UriKind.Absolute),
+            Headers = {
+                { "Authorization", $"Bearer {authToken}" },
+            },
+        };
 
-            if (!response.IsSuccessStatusCode)
-                await PaymobRequestException.ThrowFor(response);
+        HttpResponseMessage response = await _httpClient.SendAsync(request);
 
-            return await response.Content.ReadFromJsonAsync<CashInTransaction>();
-        }
+        if (!response.IsSuccessStatusCode)
+            await PaymobRequestException.ThrowFor(response);
+
+        return await response.Content.ReadFromJsonAsync<CashInTransaction>();
     }
 }

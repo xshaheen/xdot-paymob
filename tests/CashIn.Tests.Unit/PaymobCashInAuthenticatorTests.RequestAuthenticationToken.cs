@@ -4,70 +4,64 @@
 
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
-using AutoFixture;
-using FluentAssertions;
-using NSubstitute;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
 using X.Paymob.CashIn.Models.Auth;
-using Xunit;
 
-namespace CashIn.Tests.Unit {
-    public partial class PaymobCashInAuthenticatorTests {
-        [Fact]
-        public async Task should_make_call_and_return_response_when_send_request() {
-            // given
-            string apiKey = _fixture.AutoFixture.Create<string>();
-            var config = _fixture.CashInConfig with { ApiKey = apiKey };
-            _fixture.Options.CurrentValue.Returns(config);
-            var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
-            string requestJson = JsonSerializer.Serialize(request);
-            var expectedResponse = _fixture.AutoFixture.Create<CashInAuthenticationTokenResponse>();
-            string expectedResponseJson = JsonSerializer.Serialize(expectedResponse);
+namespace CashIn.Tests.Unit;
 
-            _fixture.Server
-                .Given(Request.Create().WithPath("/auth/tokens").UsingPost().WithBody(requestJson))
-                .RespondWith(Response.Create().WithBody(expectedResponseJson));
+public partial class PaymobCashInAuthenticatorTests {
+    [Fact]
+    public async Task should_make_call_and_return_response_when_send_request() {
+        // given
+        string apiKey = _fixture.AutoFixture.Create<string>();
+        var config = _fixture.CashInConfig with { ApiKey = apiKey };
+        _fixture.Options.CurrentValue.Returns(config);
+        var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
+        string requestJson = JsonSerializer.Serialize(request);
+        var expectedResponse = _fixture.AutoFixture.Create<CashInAuthenticationTokenResponse>();
+        string expectedResponseJson = JsonSerializer.Serialize(expectedResponse);
 
-            // when
-            var authenticator = new PaymobCashInAuthenticator(
-                _fixture.HttpClient,
-                _fixture.ClockBroker,
-                _fixture.Options
-            );
+        _fixture.Server
+            .Given(Request.Create().WithPath("/auth/tokens").UsingPost().WithBody(requestJson))
+            .RespondWith(Response.Create().WithBody(expectedResponseJson));
 
-            var result = await authenticator.RequestAuthenticationTokenAsync();
+        // when
+        var authenticator = new PaymobCashInAuthenticator(
+            _fixture.HttpClient,
+            _fixture.ClockBroker,
+            _fixture.Options
+        );
 
-            // then
-            JsonSerializer.Serialize(result).Should().BeEquivalentTo(expectedResponseJson);
-        }
+        var result = await authenticator.RequestAuthenticationTokenAsync();
 
-        [Fact]
-        public void should_throw_http_request_exception_when_not_success() {
-            // given
-            string apiKey = _fixture.AutoFixture.Create<string>();
-            var config = _fixture.CashInConfig with { ApiKey = apiKey };
-            _fixture.Options.CurrentValue.Returns(config);
-            var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
-            string requestJson = JsonSerializer.Serialize(request);
-            var body = _fixture.AutoFixture.Create<string>();
+        // then
+        JsonSerializer.Serialize(result).Should().BeEquivalentTo(expectedResponseJson);
+    }
 
-            _fixture.Server
-                .Given(Request.Create().WithPath("/auth/tokens").UsingPost().WithBody(requestJson))
-                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
+    [Fact]
+    public async Task should_throw_http_request_exception_when_not_success() {
+        // given
+        string apiKey = _fixture.AutoFixture.Create<string>();
+        var config = _fixture.CashInConfig with { ApiKey = apiKey };
+        _fixture.Options.CurrentValue.Returns(config);
+        var request = new CashInAuthenticationTokenRequest { ApiKey = apiKey };
+        string requestJson = JsonSerializer.Serialize(request);
+        var body = _fixture.AutoFixture.Create<string>();
 
-            // when
-            var authenticator =
-                new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
-            var invocation = FluentActions.Awaiting(() => authenticator.RequestAuthenticationTokenAsync());
+        _fixture.Server
+            .Given(Request.Create().WithPath("/auth/tokens").UsingPost().WithBody(requestJson))
+            .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
-            // then
-            var exception = invocation.Should().Throw<PaymobRequestException>().Which;
-            exception.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-            exception.Message.Should().Be("Paymob Cash In - Http request failed with status code (500).");
-            exception.Body.Should().Be(body);
-        }
+        // when
+        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
+        var invocation = FluentActions.Awaiting(() => authenticator.RequestAuthenticationTokenAsync());
+
+        // then
+        var assertions = await invocation.Should().ThrowAsync<PaymobRequestException>();
+        assertions.Which.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
+        assertions.Which.Message.Should().Be("Paymob Cash In - Http request failed with status code (500).");
+        assertions.Which.Body.Should().Be(body);
     }
 }

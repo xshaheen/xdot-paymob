@@ -11,6 +11,22 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
+  <PropertyGroup Label="Package">
+    <Authors>Mahmoud Shaheen</Authors>
+    <Company>Mahmoud Shaheen</Company>
+    <Copyright>Copyright (c) Mahmoud Shaheen. All rights Reserved</Copyright>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/xshaheen/xdot-paymob.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/xshaheen/xdot-paymob</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/xshaheen/xdot-paymob/releases</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!--<PackageIcon>Icon.png</PackageIcon>-->
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
   <ItemGroup Label="Global packages">
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" PrivateAssets="All" />
   </ItemGroup>

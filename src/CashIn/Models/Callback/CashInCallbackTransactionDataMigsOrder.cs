@@ -2,44 +2,42 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 
-namespace X.Paymob.CashIn.Models.Callback {
-    [PublicAPI]
-    public class CashInCallbackTransactionDataMigsOrder {
-        [JsonPropertyName("acceptPartialAmount")]
-        public bool AcceptPartialAmount { get; init; }
+namespace X.Paymob.CashIn.Models.Callback; 
 
-        [JsonPropertyName("id")]
-        public string Id { get; init; } = default!;
+[PublicAPI]
+public class CashInCallbackTransactionDataMigsOrder {
+    [JsonPropertyName("acceptPartialAmount")]
+    public bool AcceptPartialAmount { get; init; }
 
-        [JsonPropertyName("status")]
-        public string Status { get; init; } = default!;
+    [JsonPropertyName("id")]
+    public string Id { get; init; } = default!;
 
-        [JsonPropertyName("totalAuthorizedAmount")]
-        public decimal TotalAuthorizedAmount { get; init; }
+    [JsonPropertyName("status")]
+    public string Status { get; init; } = default!;
 
-        [JsonPropertyName("totalCapturedAmount")]
-        public decimal TotalCapturedAmount { get; init; }
+    [JsonPropertyName("totalAuthorizedAmount")]
+    public decimal TotalAuthorizedAmount { get; init; }
 
-        [JsonPropertyName("totalRefundedAmount")]
-        public decimal TotalRefundedAmount { get; init; }
+    [JsonPropertyName("totalCapturedAmount")]
+    public decimal TotalCapturedAmount { get; init; }
 
-        [JsonPropertyName("creationTime")]
-        [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
-        public DateTimeOffset CreationTime { get; init; }
+    [JsonPropertyName("totalRefundedAmount")]
+    public decimal TotalRefundedAmount { get; init; }
 
-        [JsonPropertyName("amount")]
-        public decimal Amount { get; init; }
+    [JsonPropertyName("creationTime")]
+    [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
+    public DateTimeOffset CreationTime { get; init; }
 
-        [JsonPropertyName("currency")]
-        public string Currency { get; init; } = default!;
+    [JsonPropertyName("amount")]
+    public decimal Amount { get; init; }
 
-        [JsonExtensionData]
-        public IDictionary<string, object?>? ExtensionData { get; init; }
-    }
+    [JsonPropertyName("currency")]
+    public string Currency { get; init; } = default!;
+
+    [JsonExtensionData]
+    public IDictionary<string, object?>? ExtensionData { get; init; }
 }

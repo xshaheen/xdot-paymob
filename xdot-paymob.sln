@@ -22,10 +22,11 @@ ProjectSection(SolutionItems) = preProject
 	.gitattributes = .gitattributes
 	.gitignore = .gitignore
 	Directory.Build.props = Directory.Build.props
-	nuget.configx = nuget.configx
-	readme.md = readme.md
+	nuget.config = nuget.config
 	LICENSE.txt = LICENSE.txt
 	omnisharp.json = omnisharp.json
+	README.md = README.md
+	Directory.Build.targets = Directory.Build.targets
 EndProjectSection
 EndProject
 Global

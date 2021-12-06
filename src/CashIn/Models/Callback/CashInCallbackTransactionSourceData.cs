@@ -2,30 +2,29 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Callback {
-    [PublicAPI]
-    public class CashInCallbackTransactionSourceData {
-        [JsonPropertyName("pan")]
-        public string? Pan { get; init; }
+namespace X.Paymob.CashIn.Models.Callback; 
 
-        [JsonPropertyName("type")]
-        public string? Type { get; init; }
+[PublicAPI]
+public class CashInCallbackTransactionSourceData {
+    [JsonPropertyName("pan")]
+    public string? Pan { get; init; }
 
-        [JsonPropertyName("sub_type")]
-        public string? SubType { get; init; }
+    [JsonPropertyName("type")]
+    public string? Type { get; init; }
 
-        [JsonPropertyName("tenure")]
-        public object? Tenure { get; init; }
+    [JsonPropertyName("sub_type")]
+    public string? SubType { get; init; }
 
-        /// <summary>Only if Wallet or Accept Kiosk.</summary>
-        [JsonPropertyName("phone_number")]
-        public string? PhoneNumber { get; init; }
+    [JsonPropertyName("tenure")]
+    public object? Tenure { get; init; }
 
-        [JsonExtensionData]
-        public IDictionary<string, object?>? ExtensionData { get; init; }
-    }
+    /// <summary>Only if Wallet or Accept Kiosk.</summary>
+    [JsonPropertyName("phone_number")]
+    public string? PhoneNumber { get; init; }
+
+    [JsonExtensionData]
+    public IDictionary<string, object?>? ExtensionData { get; init; }
 }

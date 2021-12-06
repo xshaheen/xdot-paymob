@@ -5,19 +5,19 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Callback {
-    [PublicAPI]
-    public class TransactionProcessedCallbackResponseObj {
-        [JsonPropertyName("encoding")]
-        public string? Encoding { get; init; }
+namespace X.Paymob.CashIn.Models.Callback; 
 
-        [JsonPropertyName("headers")]
-        public string? Headers { get; init; }
+[PublicAPI]
+public class TransactionProcessedCallbackResponseObj {
+    [JsonPropertyName("encoding")]
+    public string? Encoding { get; init; }
 
-        [JsonPropertyName("content")]
-        public string? Content { get; init; }
+    [JsonPropertyName("headers")]
+    public string? Headers { get; init; }
 
-        [JsonPropertyName("status")]
-        public string? Status { get; init; }
-    }
+    [JsonPropertyName("content")]
+    public string? Content { get; init; }
+
+    [JsonPropertyName("status")]
+    public string? Status { get; init; }
 }

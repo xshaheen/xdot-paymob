@@ -5,10 +5,10 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Payment {
-    [PublicAPI]
-    public class CashInPaymentKeyResponse {
-        [JsonPropertyName("token")]
-        public string PaymentKey { get; init; } = default!;
-    }
+namespace X.Paymob.CashIn.Models.Payment; 
+
+[PublicAPI]
+public class CashInPaymentKeyResponse {
+    [JsonPropertyName("token")]
+    public string PaymentKey { get; init; } = default!;
 }

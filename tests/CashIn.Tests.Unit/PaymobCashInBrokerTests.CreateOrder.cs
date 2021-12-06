@@ -2,77 +2,73 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System;
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
-using AutoFixture;
-using FluentAssertions;
-using NSubstitute;
+using System.Text.Json.Serialization;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using X.Paymob.CashIn;
 using X.Paymob.CashIn.Models.Orders;
-using Xunit;
 
-namespace CashIn.Tests.Unit {
-    public partial class PaymobCashInBrokerTests {
-        private static readonly JsonSerializerOptions _IgnoreNullOptions =
-            new(JsonSerializerDefaults.Web) { IgnoreNullValues = true };
+namespace CashIn.Tests.Unit;
 
-        [Fact]
-        public async Task should_make_call_and_return_response_when_create_order() {
-            // given
-            var request = _CreateOrderRequest();
-            var token = _fixture.AutoFixture.Create<string>();
-            var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
-            authenticator.GetAuthenticationTokenAsync().Returns(token);
-            var internalRequest = new CashInCreateOrderInternalRequest(token, request);
-            var internalRequestJson = JsonSerializer.Serialize(internalRequest, _IgnoreNullOptions);
-            var response = _fixture.AutoFixture.Create<CashInCreateOrderResponse>();
-            var responseJson = JsonSerializer.Serialize(response);
+public partial class PaymobCashInBrokerTests {
+    private static readonly JsonSerializerOptions _IgnoreNullOptions = new(JsonSerializerDefaults.Web) {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+    };
 
-            _fixture.Server
-                .Given(Request.Create().WithPath("/ecommerce/orders").UsingPost().WithBody(internalRequestJson))
-                .RespondWith(Response.Create().WithBody(responseJson));
+    [Fact]
+    public async Task should_make_call_and_return_response_when_create_order() {
+        // given
+        var request = _CreateOrderRequest();
+        var token = _fixture.AutoFixture.Create<string>();
+        var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
+        authenticator.GetAuthenticationTokenAsync().Returns(token);
+        var internalRequest = new CashInCreateOrderInternalRequest(token, request);
+        var internalRequestJson = JsonSerializer.Serialize(internalRequest, _IgnoreNullOptions);
+        var response = _fixture.AutoFixture.Create<CashInCreateOrderResponse>();
+        var responseJson = JsonSerializer.Serialize(response);
 
-            // when
-            var broker = new PaymobCashInBroker(_fixture.HttpClient, authenticator, _fixture.Options);
-            var result = await broker.CreateOrderAsync(request);
+        _fixture.Server
+            .Given(Request.Create().WithPath("/ecommerce/orders").UsingPost().WithBody(internalRequestJson))
+            .RespondWith(Response.Create().WithBody(responseJson));
 
-            // then
-            await authenticator.Received(1).GetAuthenticationTokenAsync();
-            JsonSerializer.Serialize(result).Should().Be(responseJson);
-        }
+        // when
+        var broker = new PaymobCashInBroker(_fixture.HttpClient, authenticator, _fixture.Options);
+        var result = await broker.CreateOrderAsync(request);
 
-        [Fact]
-        public async Task should_throw_http_request_exception_when_create_order_request_not_success() {
-            // given
-            var request = _CreateOrderRequest();
-            var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
-            var token = _fixture.AutoFixture.Create<string>();
-            authenticator.GetAuthenticationTokenAsync().Returns(token);
-            var body = _fixture.AutoFixture.Create<string>();
+        // then
+        await authenticator.Received(1).GetAuthenticationTokenAsync();
+        JsonSerializer.Serialize(result).Should().Be(responseJson);
+    }
 
-            _fixture.Server
-                .Given(Request.Create().WithPath("/ecommerce/orders").UsingPost())
-                .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
+    [Fact]
+    public async Task should_throw_http_request_exception_when_create_order_request_not_success() {
+        // given
+        var request = _CreateOrderRequest();
+        var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
+        var token = _fixture.AutoFixture.Create<string>();
+        authenticator.GetAuthenticationTokenAsync().Returns(token);
+        var body = _fixture.AutoFixture.Create<string>();
 
-            // when
-            var broker = new PaymobCashInBroker(_fixture.HttpClient, authenticator, _fixture.Options);
-            var invocation = FluentActions.Awaiting(() => broker.CreateOrderAsync(request));
+        _fixture.Server
+            .Given(Request.Create().WithPath("/ecommerce/orders").UsingPost())
+            .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
-            // then
-            _ShouldThrowPaymobRequestException(invocation, (int) HttpStatusCode.InternalServerError, body);
-            await authenticator.Received(1).GetAuthenticationTokenAsync();
-        }
+        // when
+        var broker = new PaymobCashInBroker(_fixture.HttpClient, authenticator, _fixture.Options);
+        var invocation = FluentActions.Awaiting(() => broker.CreateOrderAsync(request));
 
-        private CashInCreateOrderRequest _CreateOrderRequest() {
-            return CashInCreateOrderRequest.CreateOrder(
-                amountCents: new Random().Next(10_000, 100_000),
-                currency: _fixture.AutoFixture.Create<string>(),
-                merchantOrderId: Guid.NewGuid().ToString()
-            );
-        }
+        // then
+        await _ShouldThrowPaymobRequestException(invocation, HttpStatusCode.InternalServerError, body);
+        await authenticator.Received(1).GetAuthenticationTokenAsync();
+    }
+
+    private CashInCreateOrderRequest _CreateOrderRequest() {
+        return CashInCreateOrderRequest.CreateOrder(
+            amountCents: new Random().Next(10_000, 100_000),
+            currency: _fixture.AutoFixture.Create<string>(),
+            merchantOrderId: Guid.NewGuid().ToString()
+        );
     }
 }

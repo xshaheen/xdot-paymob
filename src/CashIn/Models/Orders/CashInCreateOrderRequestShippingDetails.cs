@@ -5,31 +5,31 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Orders {
-    [PublicAPI]
-    public class CashInCreateOrderRequestShippingDetails {
-        [JsonPropertyName("number_of_packages")]
-        public int NumberOfPackages { get; init; }
+namespace X.Paymob.CashIn.Models.Orders; 
 
-        [JsonPropertyName("weight")]
-        public int Weight { get; init; }
+[PublicAPI]
+public class CashInCreateOrderRequestShippingDetails {
+    [JsonPropertyName("number_of_packages")]
+    public int NumberOfPackages { get; init; }
 
-        [JsonPropertyName("length")]
-        public int Length { get; init; }
+    [JsonPropertyName("weight")]
+    public int Weight { get; init; }
 
-        [JsonPropertyName("width")]
-        public int Width { get; init; }
+    [JsonPropertyName("length")]
+    public int Length { get; init; }
 
-        [JsonPropertyName("height")]
-        public int Height { get; init; }
+    [JsonPropertyName("width")]
+    public int Width { get; init; }
 
-        [JsonPropertyName("weight_unit")]
-        public string WeightUnit { get; init; } = "Kilogram";
+    [JsonPropertyName("height")]
+    public int Height { get; init; }
 
-        [JsonPropertyName("contents")]
-        public string Contents { get; init; } = default!;
+    [JsonPropertyName("weight_unit")]
+    public string WeightUnit { get; init; } = "Kilogram";
 
-        [JsonPropertyName("notes")]
-        public string Notes { get; init; } = default!;
-    }
+    [JsonPropertyName("contents")]
+    public string Contents { get; init; } = default!;
+
+    [JsonPropertyName("notes")]
+    public string Notes { get; init; } = default!;
 }

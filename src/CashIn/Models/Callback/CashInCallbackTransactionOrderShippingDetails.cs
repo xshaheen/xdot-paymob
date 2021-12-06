@@ -2,65 +2,64 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Callback {
-    [PublicAPI]
-    public class CashInCallbackTransactionOrderShippingDetails {
-        [JsonPropertyName("id")]
-        public int Id { get; init; }
+namespace X.Paymob.CashIn.Models.Callback; 
 
-        [JsonPropertyName("cash_on_delivery_amount")]
-        public int CashOnDeliveryAmount { get; init; }
+[PublicAPI]
+public class CashInCallbackTransactionOrderShippingDetails {
+    [JsonPropertyName("id")]
+    public int Id { get; init; }
 
-        [JsonPropertyName("cash_on_delivery_type")]
-        public string? CashOnDeliveryType { get; init; }
+    [JsonPropertyName("cash_on_delivery_amount")]
+    public int CashOnDeliveryAmount { get; init; }
 
-        [JsonPropertyName("is_same_day")]
-        public int IsSameDay { get; init; }
+    [JsonPropertyName("cash_on_delivery_type")]
+    public string? CashOnDeliveryType { get; init; }
 
-        [JsonPropertyName("number_of_packages")]
-        public int NumberOfPackages { get; init; }
+    [JsonPropertyName("is_same_day")]
+    public int IsSameDay { get; init; }
 
-        [JsonPropertyName("weight")]
-        public int Weight { get; init; }
+    [JsonPropertyName("number_of_packages")]
+    public int NumberOfPackages { get; init; }
 
-        [JsonPropertyName("weight_unit")]
-        public string WeightUnit { get; init; } = default!;
+    [JsonPropertyName("weight")]
+    public int Weight { get; init; }
 
-        [JsonPropertyName("length")]
-        public int Length { get; init; }
+    [JsonPropertyName("weight_unit")]
+    public string WeightUnit { get; init; } = default!;
 
-        [JsonPropertyName("width")]
-        public int Width { get; init; }
+    [JsonPropertyName("length")]
+    public int Length { get; init; }
 
-        [JsonPropertyName("height")]
-        public int Height { get; init; }
+    [JsonPropertyName("width")]
+    public int Width { get; init; }
 
-        [JsonPropertyName("delivery_type")]
-        public string? DeliveryType { get; init; }
+    [JsonPropertyName("height")]
+    public int Height { get; init; }
 
-        [JsonPropertyName("order_id")]
-        public int OrderId { get; init; }
+    [JsonPropertyName("delivery_type")]
+    public string? DeliveryType { get; init; }
 
-        [JsonPropertyName("order")]
-        public int Order { get; init; }
+    [JsonPropertyName("order_id")]
+    public int OrderId { get; init; }
 
-        [JsonPropertyName("notes")]
-        public string? Notes { get; init; }
+    [JsonPropertyName("order")]
+    public int Order { get; init; }
 
-        [JsonPropertyName("latitude")]
-        public object? Latitude { get; init; }
+    [JsonPropertyName("notes")]
+    public string? Notes { get; init; }
 
-        [JsonPropertyName("longitude")]
-        public object? Longitude { get; init; }
+    [JsonPropertyName("latitude")]
+    public object? Latitude { get; init; }
 
-        [JsonPropertyName("return_type")]
-        public object? ReturnType { get; init; }
+    [JsonPropertyName("longitude")]
+    public object? Longitude { get; init; }
 
-        [JsonExtensionData]
-        public IDictionary<string, object?>? ExtensionData { get; init; }
-    }
+    [JsonPropertyName("return_type")]
+    public object? ReturnType { get; init; }
+
+    [JsonExtensionData]
+    public IDictionary<string, object?>? ExtensionData { get; init; }
 }

@@ -5,10 +5,10 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Auth {
-    [PublicAPI]
-    internal class CashInAuthenticationTokenRequest {
-        [JsonPropertyName("api_key")]
-        public string ApiKey { get; init; } = default!;
-    }
+namespace X.Paymob.CashIn.Models.Auth; 
+
+[PublicAPI]
+internal class CashInAuthenticationTokenRequest {
+    [JsonPropertyName("api_key")]
+    public string ApiKey { get; init; } = default!;
 }

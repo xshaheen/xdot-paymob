@@ -5,23 +5,23 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Payment {
-    [PublicAPI]
-    public class CashInSource {
-        public static readonly CashInSource Kiosk = new("AGGREGATOR", "AGGREGATOR");
-        public static readonly CashInSource Cash = new("cash", "CASH");
-        public static CashInSource Wallet(string phoneNumber) => new(phoneNumber, "WALLET");
-        public static CashInSource SavedToken(string savedToken) => new(savedToken, "TOKEN");
+namespace X.Paymob.CashIn.Models.Payment; 
 
-        private CashInSource(string identifier, string subtype) {
-            Identifier = identifier;
-            Subtype = subtype;
-        }
+[PublicAPI]
+public class CashInSource {
+    public static readonly CashInSource Kiosk = new("AGGREGATOR", "AGGREGATOR");
+    public static readonly CashInSource Cash = new("cash", "CASH");
+    public static CashInSource Wallet(string phoneNumber) => new(phoneNumber, "WALLET");
+    public static CashInSource SavedToken(string savedToken) => new(savedToken, "TOKEN");
 
-        [JsonPropertyName("identifier")]
-        public string Identifier { get; init; }
-
-        [JsonPropertyName("subtype")]
-        public string Subtype { get; init; }
+    private CashInSource(string identifier, string subtype) {
+        Identifier = identifier;
+        Subtype = subtype;
     }
+
+    [JsonPropertyName("identifier")]
+    public string Identifier { get; init; }
+
+    [JsonPropertyName("subtype")]
+    public string Subtype { get; init; }
 }

@@ -5,13 +5,13 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Payment {
-    [PublicAPI]
-    public class CashInPayRequest {
-        [JsonPropertyName("source")]
-        public CashInSource Source { get; init; } = default!;
+namespace X.Paymob.CashIn.Models.Payment; 
 
-        [JsonPropertyName("payment_token")]
-        public string PaymentToken { get; init; } = default!;
-    }
+[PublicAPI]
+public class CashInPayRequest {
+    [JsonPropertyName("source")]
+    public CashInSource Source { get; init; } = default!;
+
+    [JsonPropertyName("payment_token")]
+    public string PaymentToken { get; init; } = default!;
 }

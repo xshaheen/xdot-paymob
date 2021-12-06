@@ -5,28 +5,28 @@
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Callback {
-    [PublicAPI]
-    public class CashInCallbackTransactionDataAcquirer {
-        [JsonPropertyName("settlementDate")]
-        public string SettlementDate { get; init; } = default!;
+namespace X.Paymob.CashIn.Models.Callback; 
 
-        [JsonPropertyName("timeZone")]
-        public string TimeZone { get; init; } = default!;
+[PublicAPI]
+public class CashInCallbackTransactionDataAcquirer {
+    [JsonPropertyName("settlementDate")]
+    public string SettlementDate { get; init; } = default!;
 
-        [JsonPropertyName("id")]
-        public string Id { get; init; } = default!;
+    [JsonPropertyName("timeZone")]
+    public string TimeZone { get; init; } = default!;
 
-        [JsonPropertyName("date")]
-        public string Date { get; init; } = default!;
+    [JsonPropertyName("id")]
+    public string Id { get; init; } = default!;
 
-        [JsonPropertyName("merchantId")]
-        public string MerchantId { get; init; } = default!;
+    [JsonPropertyName("date")]
+    public string Date { get; init; } = default!;
 
-        [JsonPropertyName("transactionId")]
-        public string TransactionId { get; init; } = default!;
+    [JsonPropertyName("merchantId")]
+    public string MerchantId { get; init; } = default!;
 
-        [JsonPropertyName("batch")]
-        public int Batch { get; init; }
-    }
+    [JsonPropertyName("transactionId")]
+    public string TransactionId { get; init; } = default!;
+
+    [JsonPropertyName("batch")]
+    public int Batch { get; init; }
 }

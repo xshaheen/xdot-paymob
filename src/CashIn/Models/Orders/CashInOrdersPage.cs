@@ -2,40 +2,38 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 
-namespace X.Paymob.CashIn.Models.Orders {
-    [PublicAPI]
-    public class CashInOrdersPage {
-        private readonly IReadOnlyCollection<CashInOrder>? _results;
+namespace X.Paymob.CashIn.Models.Orders; 
 
-        [JsonPropertyName("count")]
-        public int Count { get; init; }
+[PublicAPI]
+public class CashInOrdersPage {
+    private readonly IReadOnlyCollection<CashInOrder>? _results;
 
-        [JsonPropertyName("next")]
-        public string? Next { get; init; }
+    [JsonPropertyName("count")]
+    public int Count { get; init; }
 
-        [JsonPropertyName("previous")]
-        public string? Previous { get; init; }
+    [JsonPropertyName("next")]
+    public string? Next { get; init; }
 
-        [JsonPropertyName("results")]
-        public IReadOnlyCollection<CashInOrder> Results {
-            get => _results ?? Array.Empty<CashInOrder>();
-            init => _results = value;
-        }
+    [JsonPropertyName("previous")]
+    public string? Previous { get; init; }
 
-        [JsonExtensionData]
-        public IDictionary<string, object?>? ExtensionData { get; init; }
+    [JsonPropertyName("results")]
+    public IReadOnlyCollection<CashInOrder> Results {
+        get => _results ?? Array.Empty<CashInOrder>();
+        init => _results = value;
+    }
 
-        public bool HasPrevious() {
-            return Previous is not null;
-        }
+    [JsonExtensionData]
+    public IDictionary<string, object?>? ExtensionData { get; init; }
 
-        public bool HasNext() {
-            return Next is not null;
-        }
+    public bool HasPrevious() {
+        return Previous is not null;
+    }
+
+    public bool HasNext() {
+        return Next is not null;
     }
 }

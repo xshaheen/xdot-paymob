@@ -2,62 +2,59 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
 
-namespace X.Paymob.CashIn.Models.Callback {
-    [PublicAPI]
-    public class CashInCallbackToken {
-        [JsonPropertyName("id")]
-        public int Id { get; init; }
+namespace X.Paymob.CashIn.Models.Callback; 
 
-        [JsonPropertyName("token")]
-        public string Token { get; init; } = default!;
+[PublicAPI]
+public class CashInCallbackToken {
+    [JsonPropertyName("id")]
+    public int Id { get; init; }
 
-        [JsonPropertyName("masked_pan")]
-        public string MaskedPan { get; init; } = default!;
+    [JsonPropertyName("token")]
+    public string Token { get; init; } = default!;
 
-        [JsonPropertyName("merchant_id")]
-        public int MerchantId { get; init; }
+    [JsonPropertyName("masked_pan")]
+    public string MaskedPan { get; init; } = default!;
 
-        [JsonPropertyName("card_subtype")]
-        public string CardSubtype { get; init; } = default!;
+    [JsonPropertyName("merchant_id")]
+    public int MerchantId { get; init; }
 
-        [JsonPropertyName("created_at")]
-        [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
-        public DateTimeOffset CreatedAt { get; init; }
+    [JsonPropertyName("card_subtype")]
+    public string CardSubtype { get; init; } = default!;
 
-        [JsonPropertyName("email")]
-        public string Email { get; init; } = default!;
+    [JsonPropertyName("created_at")]
+    [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
+    public DateTimeOffset CreatedAt { get; init; }
 
-        [JsonPropertyName("order_id")]
-        public string OrderId { get; init; } = default!;
+    [JsonPropertyName("email")]
+    public string Email { get; init; } = default!;
 
-        [JsonPropertyName("user_added")]
-        public bool UserAdded { get; init; }
+    [JsonPropertyName("order_id")]
+    public string OrderId { get; init; } = default!;
 
-        [JsonExtensionData]
-        public IDictionary<string, object?>? ExtensionData { get; init; }
+    [JsonPropertyName("user_added")]
+    public bool UserAdded { get; init; }
 
-        /// <summary>Return the concatenated string of transaction.</summary>
-        public string ToConcatenatedString() {
-            string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-            string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
+    [JsonExtensionData]
+    public IDictionary<string, object?>? ExtensionData { get; init; }
 
-            return
-                CardSubtype +
-                createdAtWithoutQuotes +
-                Email +
-                Id.ToString(CultureInfo.InvariantCulture) +
-                MaskedPan +
-                MerchantId.ToString(CultureInfo.InvariantCulture) +
-                OrderId.ToString(CultureInfo.InvariantCulture) +
-                Token;
-        }
+    /// <summary>Return the concatenated string of transaction.</summary>
+    public string ToConcatenatedString() {
+        string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
+        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
+
+        return
+            CardSubtype +
+            createdAtWithoutQuotes +
+            Email +
+            Id.ToString(CultureInfo.InvariantCulture) +
+            MaskedPan +
+            MerchantId.ToString(CultureInfo.InvariantCulture) +
+            OrderId.ToString(CultureInfo.InvariantCulture) +
+            Token;
     }
 }

@@ -2,67 +2,64 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Flurl;
 using Microsoft.Extensions.Options;
 using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Auth;
 
-namespace X.Paymob.CashIn {
-    public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
-        private static readonly long _MaxTicks = TimeSpan.FromMinutes(59).Ticks;
-        private readonly IClockBroker _clockBroker;
-        private readonly HttpClient _httpClient;
-        private readonly IOptionsMonitor<CashInConfig> _options;
-        private long? _createdAtTicks;
-        private string? _token;
+namespace X.Paymob.CashIn; 
 
-        public PaymobCashInAuthenticator(
-            HttpClient httpClient,
-            IClockBroker clockBroker,
-            IOptionsMonitor<CashInConfig> options
-        ) {
-            _httpClient = httpClient;
-            _clockBroker = clockBroker;
-            _options = options;
-            options.OnChange(_ => _InvalidateCache());
-        }
+public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
+    private static readonly long _MaxTicks = TimeSpan.FromMinutes(59).Ticks;
+    private readonly IClockBroker _clockBroker;
+    private readonly HttpClient _httpClient;
+    private readonly IOptionsMonitor<CashInConfig> _options;
+    private long? _createdAtTicks;
+    private string? _token;
 
-        public async Task<CashInAuthenticationTokenResponse> RequestAuthenticationTokenAsync() {
-            var config = _options.CurrentValue;
-            var requestUrl = Url.Combine(config.ApiBaseUrl, "auth/tokens");
-            var request = new CashInAuthenticationTokenRequest { ApiKey = config.ApiKey };
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
+    public PaymobCashInAuthenticator(
+        HttpClient httpClient,
+        IClockBroker clockBroker,
+        IOptionsMonitor<CashInConfig> options
+    ) {
+        _httpClient = httpClient;
+        _clockBroker = clockBroker;
+        _options = options;
+        options.OnChange(_ => _InvalidateCache());
+    }
 
-            if (!response.IsSuccessStatusCode)
-                await PaymobRequestException.ThrowFor(response);
+    public async Task<CashInAuthenticationTokenResponse> RequestAuthenticationTokenAsync() {
+        var config = _options.CurrentValue;
+        var requestUrl = Url.Combine(config.ApiBaseUrl, "auth/tokens");
+        var request = new CashInAuthenticationTokenRequest { ApiKey = config.ApiKey };
+        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
 
-            var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
-            _Cache(content!.Token);
+        if (!response.IsSuccessStatusCode)
+            await PaymobRequestException.ThrowFor(response);
 
-            return content;
-        }
+        var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
+        _Cache(content!.Token);
 
-        public async ValueTask<string> GetAuthenticationTokenAsync() {
-            if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks)
-                return _token;
+        return content;
+    }
 
-            CashInAuthenticationTokenResponse response = await RequestAuthenticationTokenAsync();
+    public async ValueTask<string> GetAuthenticationTokenAsync() {
+        if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks)
+            return _token;
 
-            return response.Token;
-        }
+        CashInAuthenticationTokenResponse response = await RequestAuthenticationTokenAsync();
 
-        private void _Cache(string token) {
-            _token = token;
-            _createdAtTicks = _clockBroker.TicksNow;
-        }
+        return response.Token;
+    }
 
-        private void _InvalidateCache() {
-            _token = null;
-            _createdAtTicks = null;
-        }
+    private void _Cache(string token) {
+        _token = token;
+        _createdAtTicks = _clockBroker.TicksNow;
+    }
+
+    private void _InvalidateCache() {
+        _token = null;
+        _createdAtTicks = null;
     }
 }
