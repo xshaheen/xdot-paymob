@@ -50,26 +50,26 @@ jobs:
           dotnet-version: ${{ env.SDK }}
 
       - name: "Dotnet Nuke Restore"
-        run: build.ps1 Restore
+        run: ./build.ps1 Restore
         shell: pwsh
 
       - name: "Dotnet Nuke Build"
-        run: build.ps1 Compile
+        run: ./build.ps1 Compile -Configuration Release
         shell: pwsh
 
       - name: "Dotnet Nuke Test"
-        run: .build.ps1 Test
+        run: ./build.ps1 Test
         shell: pwsh
 
       - name: "Dotnet Nuke Pack"
-        run: .build.ps1 Pack
+        run: ./build.ps1 Pack
         shell: pwsh
 
-      - name: "Publish Artefacts"
+      - name: "Publish Artifacts"
         uses: actions/upload-artifact@v2.2.4
         with:
           name: ${{matrix.os}}
-          path: "./.artefacts"
+          path: "./.artifacts"
 
   push-github-packages:
     name: "Push GitHub Packages"
@@ -87,7 +87,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: "Download Artefact"
+      - name: "Download Artifacts"
         uses: actions/download-artifact@v2
         with:
           name: "windows-latest"
@@ -113,7 +113,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: "Download Artefact"
+      - name: "Download Artifacts"
         uses: actions/download-artifact@v2
         with:
           name: "windows-latest"

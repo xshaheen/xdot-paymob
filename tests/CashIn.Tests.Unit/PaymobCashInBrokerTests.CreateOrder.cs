@@ -20,7 +20,7 @@ public partial class PaymobCashInBrokerTests {
     [Fact]
     public async Task should_make_call_and_return_response_when_create_order() {
         // given
-        var request = PaymobCashInBrokerTests._CreateOrderRequest();
+        var request = _CreateOrderRequest();
         var token = _fixture.AutoFixture.Create<string>();
         var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
         authenticator.GetAuthenticationTokenAsync().Returns(token);
@@ -45,7 +45,7 @@ public partial class PaymobCashInBrokerTests {
     [Fact]
     public async Task should_throw_http_request_exception_when_create_order_request_not_success() {
         // given
-        var request = PaymobCashInBrokerTests._CreateOrderRequest();
+        var request = _CreateOrderRequest();
         var authenticator = Substitute.For<IPaymobCashInAuthenticator>();
         var token = _fixture.AutoFixture.Create<string>();
         authenticator.GetAuthenticationTokenAsync().Returns(token);

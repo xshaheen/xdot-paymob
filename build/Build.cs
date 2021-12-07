@@ -20,13 +20,14 @@ class Build : NukeBuild {
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    AbsolutePath SourceDirectory => RootDirectory / "src";
-    AbsolutePath TestsDirectory => RootDirectory / "tests";
-    AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
-    AbsolutePath TestResults => ArtifactsDirectory / "test-results";
+    static AbsolutePath SourceDirectory => RootDirectory / "src";
+    static AbsolutePath TestsDirectory => RootDirectory / "tests";
+
+    static AbsolutePath ArtifactsDirectory => RootDirectory / ".artifacts";
+    static AbsolutePath TestResults => ArtifactsDirectory / "test-results";
 
     Target Clean => _ => _
-        .Description("Cleans the artefacts, bin and obj directories.")
+        .Description("Cleans the artifacts, bin and obj directories.")
         .Before(Restore)
         .Executes(() => {
             SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
@@ -52,96 +53,36 @@ class Build : NukeBuild {
         });
 
     Target Test => _ => _
-        .Description("Runs unit tests and outputs test results to the artefacts directory.")
+        .Description("Runs unit tests and outputs test results to the artifacts directory.")
         .DependsOn(Compile)
         .Executes(() => {
-
-            Solution.GetProjects("*.Tests.Unit").ForEach(project => { // "./tests/**/*.csproj"
+            Solution.GetProjects("*.Tests.Unit.*").ForEach(project => {
                 DotNetTest(settings => settings
                     .SetProjectFile(project)
                     .SetConfiguration(Configuration)
                     .EnableNoRestore()
                     .EnableNoBuild()
-                    .EnableBlameMode()
+                    .EnableBlameCrash()
                     .SetDataCollector("XPlat Code Coverage")
                     .EnableCollectCoverage()
                     .SetResultsDirectory(TestResults)
-                    .SetLoggers($"trx;LogFileName={project.Name}.trx", $"html;LogFileName={project.Name}.html")
+                    .SetLoggers("console;verbosity=detailed", $"trx;LogFileName={project.Name}.trx", $"html;LogFileName={project.Name}.html")
                 );
             });
         });
 
-// Task("Test")
-//     .Description("Runs unit tests and outputs test results to the artefacts directory.")
-//     .DoesForEach(GetFiles("./Tests/**/*.csproj"), project =>
-//     {
-//         DotNetTest(
-//             project.ToString(),
-//             new DotNetTestSettings()
-//             {
-//                 Blame = true,
-//                 Collectors = new string[] { "XPlat Code Coverage" },
-//                 Configuration = configuration,
-//                 Loggers = new string[]
-//                 {
-//                     $"trx;LogFileName={project.GetFilenameWithoutExtension()}.trx",
-//                     $"html;LogFileName={project.GetFilenameWithoutExtension()}.html",
-//                 },
-//                 NoBuild = true,
-//                 NoRestore = true,
-//                 ResultsDirectory = artefactsDirectory,
-//             });
-//     });
-
-    // Target Pack => _ => _
-    //     .DependsOn(Test)
-    //     .Executes(() => {
-    //         DotNetPack(settings => settings
-    //             .SetProject(_solution)
-    //             .SetConfiguration(_configuration)
-    //             .EnableNoBuild()
-    //             .EnableNoRestore()
-    //             .SetOutputDirectory(ArtifactsDirectory)
-    //             .SetVersionSuffix(GitVersion.NuGetVersionV2)
-    //         );
-    //     });
-    //
-    // Target Publish => _ => _
-    //     .DependsOn(Test)
-    //     .Executes(() => {
-    //         DotNetPublish(settings => settings
-    //             .SetProject(_solution)
-    //             .SetConfiguration(_configuration)
-    //             .EnableNoBuild()
-    //             .EnableNoRestore()
-    //             .SetOutputDirectory(ArtifactsDirectory)
-    //             .SetVersionSuffix(GitVersion.NuGetVersionV2)
-    //         );
-    //     });
-    //
-    // Target Default => _ => _
-    //     .Description("Cleans, restores NuGet packages, builds the solution, runs unit tests and then creates NuGet packages.")
-    // .DependsOn(Clean, Compile, Restore, Test, Pack);
+    Target Pack => _ => _
+        .Description("Creates NuGet packages and outputs them to the artifacts directory.")
+        .DependsOn(Test)
+        .Executes(() => {
+            DotNetPack(settings => settings
+                .SetProject(Solution)
+                .SetConfiguration(Configuration)
+                .EnableNoBuild()
+                .EnableNoRestore()
+                .EnableIncludeSymbols()
+                .SetOutputDirectory(ArtifactsDirectory)
+                .SetContinuousIntegrationBuild(!IsLocalBuild)
+            );
+        });
 }
-
-
-// Task("Pack")
-//     .Description("Creates NuGet packages and outputs them to the artefacts directory.")
-//     .Does(() =>
-//     {
-//         DotNetPack(
-//             ".",
-//             new DotNetPackSettings()
-//             {
-//                 Configuration = configuration,
-//                 IncludeSymbols = true,
-//                 MSBuildSettings = new DotNetMSBuildSettings()
-//                 {
-//                     ContinuousIntegrationBuild = !BuildSystem.IsLocalBuild,
-//                 },
-//                 NoBuild = true,
-//                 NoRestore = true,
-//                 OutputDirectory = artefactsDirectory,
-//             });
-//     });
-//
