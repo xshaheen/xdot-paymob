@@ -22,12 +22,13 @@ ProjectSection(SolutionItems) = preProject
 	.gitattributes = .gitattributes
 	.gitignore = .gitignore
 	Directory.Build.props = Directory.Build.props
-	nuget.config = nuget.config
 	LICENSE.txt = LICENSE.txt
 	omnisharp.json = omnisharp.json
 	README.md = README.md
 	Directory.Build.targets = Directory.Build.targets
 EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{EF17047D-2A6F-4EC8-92C9-29CB9F7EA04B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +36,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF17047D-2A6F-4EC8-92C9-29CB9F7EA04B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF17047D-2A6F-4EC8-92C9-29CB9F7EA04B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CFB8BE4-9050-4080-BE5B-E850FFB12C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
