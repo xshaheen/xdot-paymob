@@ -14,8 +14,8 @@ public partial class PaymobCashInBrokerTests {
     [Fact]
     public async Task should_make_call_and_return_response_when_create_saved_token_pay_request() {
         // given
-        var requestPaymentKey = GetRandomString;
-        var requestSavedToken = GetRandomString;
+        var requestPaymentKey = _Faker.Random.String2(10, 50);
+        var requestSavedToken = _Faker.Random.String2(10, 50);
 
         var request = new CashInPayRequest {
             Source = CashInSource.SavedToken(requestSavedToken),

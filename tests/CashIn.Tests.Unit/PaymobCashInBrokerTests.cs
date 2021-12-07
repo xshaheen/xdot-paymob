@@ -3,16 +3,16 @@
 // See the LICENSE.txt file in the project root for full license information.
 
 using System.Net;
+using Bogus;
 using X.Paymob.CashIn;
 
 namespace CashIn.Tests.Unit;
 
 public partial class PaymobCashInBrokerTests : IClassFixture<PaymobCashInFixture> {
     private readonly PaymobCashInFixture _fixture;
+    private static readonly Faker _Faker = new();
 
     public PaymobCashInBrokerTests(PaymobCashInFixture fixture) => _fixture = fixture;
-
-    private string GetRandomString => _fixture.AutoFixture.Create<string>();
 
     private (IPaymobCashInAuthenticator authenticator, string token) _SetupGentAuthenticationToken() {
         var token = _fixture.AutoFixture.Create<string>();
