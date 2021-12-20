@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Analyzers">
-    <PackageReference Include="ReflectionAnalyzers" Version="0.3.0">
+    <PackageReference Include="ReflectionAnalyzers" Version="0.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
