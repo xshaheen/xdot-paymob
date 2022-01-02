@@ -10,8 +10,9 @@ namespace X.Paymob.CashIn.Models.Transactions;
 
 [PublicAPI]
 public class CashInTransactionData {
+    /// <summary>It may be a decimal or empty string.</summary>
     [JsonPropertyName("refunded_amount")]
-    public decimal? RefundedAmount { get; init; }
+    public object? RefundedAmount { get; init; }
 
     [JsonPropertyName("amount")]
     public decimal? Amount { get; init; }

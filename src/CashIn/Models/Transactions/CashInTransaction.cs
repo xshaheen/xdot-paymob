@@ -159,19 +159,49 @@ public class CashInTransaction {
     [JsonExtensionData]
     public IDictionary<string, object?>? ExtensionData { get; }
 
-    public bool IsCard() {
-        return SourceData?.Type == "card";
+    public bool IsCard() => SourceData?.Type == "card";
+
+    public bool IsWallet() => SourceData?.Type == "wallet";
+
+    public bool IsCashCollection() => SourceData?.Type == "cash_present";
+
+    public bool IsAcceptKiosk() => SourceData?.Type == "aggregator";
+
+    public bool IsFromIFrame() => ApiSource == "IFRAME";
+
+    public bool IsInvoice() => ApiSource == "INVOICE";
+
+    public bool IsInsufficientFundError() => Data?.TxnResponseCode == "INSUFFICIENT_FUNDS";
+
+    public bool IsAuthenticationFailedError() => Data?.TxnResponseCode == "AUTHENTICATION_FAILED";
+
+    public bool IsDeclinedError() {
+        // "data.message": may be  "Do not honour", or "Invalid card number", ...
+        return Data?.TxnResponseCode == "DECLINED";
     }
 
-    public bool IsWallet() {
-        return SourceData?.Type == "wallet";
+    public bool IsRiskChecksError() {
+        return
+            Data?.TxnResponseCode == "11" &&
+            Data?.Message is not null &&
+            Data.Message.ToLowerInvariant().Contains("transaction did not pass risk checks");
     }
 
-    public bool IsCashCollection() {
-        return SourceData?.Type == "cash_present";
-    }
+    public (string CardNumber, string? Type, string? Bank)? Card() {
+        if (!IsCard()) {
+            return null;
+        }
 
-    public bool IsAcceptKiosk() {
-        return SourceData?.Type == "aggregator";
+        var last4 = Data?.CardNum ?? SourceData?.Pan ?? "xxxx";
+        var bank = CardHolderBank ?? "Other";
+        var type = CardType ?? Data?.CardType ?? SourceData?.SubType;
+
+        type = type?.ToUpperInvariant() switch {
+            "MASTERCARD" => "MasterCard",
+            "VISA" => "Visa",
+            _ => type,
+        };
+
+        return (last4, type, bank == "-" ? null : bank);
     }
 }

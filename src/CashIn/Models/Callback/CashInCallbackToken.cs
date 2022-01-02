@@ -2,7 +2,6 @@
 // Licensed under the Apache 2.0 license.
 // See the LICENSE.txt file in the project root for full license information.
 
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using JetBrains.Annotations;
 using X.Paymob.CashIn.Internal;
@@ -27,8 +26,7 @@ public class CashInCallbackToken {
     public string CardSubtype { get; init; } = default!;
 
     [JsonPropertyName("created_at")]
-    [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
-    public DateTimeOffset CreatedAt { get; init; }
+    public string CreatedAt { get; init; } = default!;
 
     [JsonPropertyName("email")]
     public string Email { get; init; } = default!;
@@ -44,17 +42,23 @@ public class CashInCallbackToken {
 
     /// <summary>Return the concatenated string of transaction.</summary>
     public string ToConcatenatedString() {
-        string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
-
         return
             CardSubtype +
-            createdAtWithoutQuotes +
+            CreatedAt +
             Email +
             Id.ToString(CultureInfo.InvariantCulture) +
             MaskedPan +
             MerchantId.ToString(CultureInfo.InvariantCulture) +
             OrderId.ToString(CultureInfo.InvariantCulture) +
             Token;
+    }
+
+    public DateTimeOffset CreatedAtDateTimeOffset() {
+        var dateTime = DateTime.Parse(CreatedAt, CultureInfo.InvariantCulture);
+
+        // If not have time zone offset consider it cairo time.
+        return dateTime.Kind is DateTimeKind.Unspecified
+            ? new DateTimeOffset(dateTime, AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter.EgyptTimeZone.GetUtcOffset(dateTime))
+            : DateTimeOffset.Parse(CreatedAt, CultureInfo.InvariantCulture);
     }
 }

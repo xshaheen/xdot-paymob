@@ -91,8 +91,7 @@ public class CashInCallbackTransaction {
     public bool HasParentTransaction { get; init; }
 
     [JsonPropertyName("created_at")]
-    [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
-    public DateTimeOffset CreatedAt { get; init; }
+    public string CreatedAt { get; init; } = default!;
 
     [JsonPropertyName("currency")]
     public string Currency { get; init; } = default!;
@@ -166,32 +165,13 @@ public class CashInCallbackTransaction {
     [JsonExtensionData]
     public IDictionary<string, object?>? ExtensionData { get; init; }
 
-    public bool IsCard() {
-        return SourceData?.Type == "card";
-    }
-
-    public bool IsWallet() {
-        return SourceData?.Type == "wallet";
-    }
-
-    public bool IsCashCollection() {
-        return SourceData?.Type == "cash_present";
-    }
-
-    public bool IsAcceptKiosk() {
-        return SourceData?.Type == "aggregator";
-    }
-
     /// <summary>Return the concatenated string of transaction.</summary>
     public string ToConcatenatedString() {
         static string toString(bool value) => value ? "true" : "false";
 
-        string createdAtString = JsonSerializer.Serialize(CreatedAt.DateTime);
-        string createdAtWithoutQuotes = createdAtString.Substring(1, createdAtString.Length - 2);
-
         return
             AmountCents.ToString(CultureInfo.InvariantCulture) +
-            createdAtWithoutQuotes +
+            CreatedAt +
             Currency +
             toString(ErrorOccured) +
             toString(HasParentTransaction) +
@@ -210,5 +190,66 @@ public class CashInCallbackTransaction {
             SourceData?.SubType +
             SourceData?.Type?.ToLowerInvariant() +
             toString(Success);
+    }
+
+    public DateTimeOffset CreatedAtDateTimeOffset() {
+        var dateTime = DateTime.Parse(CreatedAt, CultureInfo.InvariantCulture);
+
+        // If not have time zone offset consider it cairo time.
+        return dateTime.Kind is DateTimeKind.Unspecified
+            ? new DateTimeOffset(dateTime, AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter.EgyptTimeZone.GetUtcOffset(dateTime))
+            : DateTimeOffset.Parse(CreatedAt, CultureInfo.InvariantCulture);
+    }
+
+    public bool IsCard() => SourceData?.Type == "card";
+
+    public bool IsWallet() => SourceData?.Type == "wallet";
+
+    public bool IsCashCollection() => SourceData?.Type == "cash_present";
+
+    public bool IsAcceptKiosk() => SourceData?.Type == "aggregator";
+
+    public bool IsFromIFrame() => ApiSource == "IFRAME";
+
+    public bool IsInvoice() => ApiSource == "INVOICE";
+
+    public bool IsInsufficientFundError() => Data?.TxnResponseCode == "INSUFFICIENT_FUNDS";
+
+    public bool IsAuthenticationFailedError() => Data?.TxnResponseCode == "AUTHENTICATION_FAILED";
+
+    public bool IsDeclinedError() {
+        // "data.message": may be  "Do not honour", or "Invalid card number", ...
+        return Data?.TxnResponseCode == "DECLINED";
+    }
+
+    public bool IsRiskChecksError() {
+        return
+            Data?.TxnResponseCode == "11" &&
+            Data?.Message is not null &&
+            Data.Message.ToLowerInvariant().Contains("transaction did not pass risk checks");
+    }
+
+    public (string CardNumber, string? Type, string? Bank)? Card() {
+        if (!IsCard()) {
+            return null;
+        }
+
+        var last4 = Data?.CardNum ?? SourceData?.Pan ?? "xxxx";
+        var bank = _GetFromExtensions("card_holder_bank") ?? "Other";
+        var type = Data?.CardType ?? SourceData?.SubType ?? _GetFromExtensions("card_type");
+
+        type = type?.ToUpperInvariant() switch {
+            "MASTERCARD" => "MasterCard",
+            "VISA" => "Visa",
+            _ => type,
+        };
+
+        return (last4, type, bank == "-" ? null : bank);
+    }
+
+    private string? _GetFromExtensions(string name) {
+        return ExtensionData is null
+            ? null
+            : ExtensionData.TryGetValue(name, out var value) ? ((JsonElement?) value)?.GetString() : null;
     }
 }
