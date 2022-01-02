@@ -108,7 +108,7 @@ jobs:
 
     environment:
       name: "NuGet"
-      url: https://www.nuget.org/packages/xdot-paymob
+      url: https://www.nuget.org/packages/Xdot.Paymob.CashIn
 
     runs-on: windows-latest
 
