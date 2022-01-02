@@ -4,6 +4,7 @@
 
 using System.Net.Http.Json;
 using Flurl;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using X.Paymob.CashIn.Models;
 using X.Paymob.CashIn.Models.Auth;
@@ -11,22 +12,21 @@ using X.Paymob.CashIn.Models.Auth;
 namespace X.Paymob.CashIn;
 
 public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
-    private static readonly long _MaxTicks = TimeSpan.FromMinutes(59).Ticks;
-    private readonly IClockBroker _clockBroker;
+    private const string _CacheKey = "PaymobToken-09841B14-7E703AF44F43";
     private readonly HttpClient _httpClient;
+    private readonly IMemoryCache _memoryCache;
     private readonly IOptionsMonitor<CashInConfig> _options;
-    private long? _createdAtTicks;
-    private string? _token;
 
     public PaymobCashInAuthenticator(
         HttpClient httpClient,
-        IClockBroker clockBroker,
+        IMemoryCache memoryCache,
         IOptionsMonitor<CashInConfig> options
     ) {
         _httpClient = httpClient;
-        _clockBroker = clockBroker;
+        _memoryCache = memoryCache;
         _options = options;
-        options.OnChange(_ => _InvalidateCache());
+
+        options.OnChange(_ => _memoryCache.Remove(_CacheKey));
     }
 
     public async Task<CashInAuthenticationTokenResponse> RequestAuthenticationTokenAsync() {
@@ -40,29 +40,21 @@ public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
         }
 
         var content = await response.Content.ReadFromJsonAsync<CashInAuthenticationTokenResponse>();
-        _Cache(content!.Token);
+
+        _memoryCache.Set(_CacheKey, content!.Token, new MemoryCacheEntryOptions {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(55),
+        });
 
         return content;
     }
 
     public async ValueTask<string> GetAuthenticationTokenAsync() {
-        if (_token is not null && _clockBroker.TicksNow - _createdAtTicks < _MaxTicks) {
-            return _token;
+        if (_memoryCache.TryGetValue(_CacheKey, out string token)) {
+            return token;
         }
 
-        CashInAuthenticationTokenResponse response = await RequestAuthenticationTokenAsync();
+        var response = await RequestAuthenticationTokenAsync();
 
         return response.Token;
-    }
-
-    private void _Cache(string token) {
-        _token = token;
-        _createdAtTicks = _clockBroker.TicksNow;
-    }
-
-    // TODO: not thread safe
-    private void _InvalidateCache() {
-        _token = null;
-        _createdAtTicks = null;
     }
 }

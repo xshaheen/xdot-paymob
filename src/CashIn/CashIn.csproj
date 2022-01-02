@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="3.3.0" />
     <PackageReference Include="Flurl" Version="3.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
@@ -38,9 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ClockBroker.cs">
-      <DependentUpon>IClockBroker.cs</DependentUpon>
-    </Compile>
     <Compile Update="PaymobCashInAuthenticator.cs">
       <DependentUpon>IPaymobCashInAuthenticator.cs</DependentUpon>
     </Compile>

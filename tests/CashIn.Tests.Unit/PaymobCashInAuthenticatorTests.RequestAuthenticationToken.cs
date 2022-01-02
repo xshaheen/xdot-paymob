@@ -28,12 +28,7 @@ public partial class PaymobCashInAuthenticatorTests {
             .RespondWith(Response.Create().WithBody(expectedResponseJson));
 
         // when
-        var authenticator = new PaymobCashInAuthenticator(
-            _fixture.HttpClient,
-            _fixture.ClockBroker,
-            _fixture.Options
-        );
-
+        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.MemoryCache, _fixture.Options);
         var result = await authenticator.RequestAuthenticationTokenAsync();
 
         // then
@@ -55,7 +50,7 @@ public partial class PaymobCashInAuthenticatorTests {
             .RespondWith(Response.Create().WithStatusCode(HttpStatusCode.InternalServerError).WithBody(body));
 
         // when
-        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
+        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.MemoryCache, _fixture.Options);
         var invocation = FluentActions.Awaiting(() => authenticator.RequestAuthenticationTokenAsync());
 
         // then

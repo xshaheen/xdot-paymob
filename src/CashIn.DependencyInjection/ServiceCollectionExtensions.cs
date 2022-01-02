@@ -51,7 +51,7 @@ public static class ServiceCollectionExtensions {
         IServiceCollection services,
         Func<PolicyBuilder<HttpResponseMessage>, IAsyncPolicy<HttpResponseMessage>>? retryPolicy
     ) {
-        services.AddSingleton<IClockBroker, ClockBroker>();
+        services.AddMemoryCache();
         const string clientName = "paymob_cash_in";
         services.AddHttpClient(clientName);
 

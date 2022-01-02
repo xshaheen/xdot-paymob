@@ -17,10 +17,10 @@ public partial class PaymobCashInAuthenticatorTests {
         _SetupRandomResponse();
 
         // when
-        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.ClockBroker, _fixture.Options);
-        _fixture.ClockBroker.TicksNow.Returns(DateTime.Now.Ticks);
+        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.MemoryCache, _fixture.Options);
+        _fixture.SystemClock.UtcNow.Returns(DateTime.Now);
         string result1 = await authenticator.GetAuthenticationTokenAsync();
-        _fixture.ClockBroker.TicksNow.Returns(DateTime.Now.AddMinutes(61).Ticks);
+        _fixture.SystemClock.UtcNow.Returns(DateTime.Now.AddMinutes(61));
         string result2 = await authenticator.GetAuthenticationTokenAsync();
 
         // then
@@ -33,15 +33,10 @@ public partial class PaymobCashInAuthenticatorTests {
         _SetupRandomResponse();
 
         // when
-        var authenticator = new PaymobCashInAuthenticator(
-            _fixture.HttpClient,
-            _fixture.ClockBroker,
-            _fixture.Options
-        );
-
-        _fixture.ClockBroker.TicksNow.Returns(DateTime.Now.Ticks);
+        var authenticator = new PaymobCashInAuthenticator(_fixture.HttpClient, _fixture.MemoryCache, _fixture.Options);
+        _fixture.SystemClock.UtcNow.Returns(DateTime.Now);
         string result1 = await authenticator.GetAuthenticationTokenAsync();
-        _fixture.ClockBroker.TicksNow.Returns(DateTime.Now.AddMinutes(50).Ticks);
+        _fixture.SystemClock.UtcNow.Returns(DateTime.Now.AddMinutes(50));
         string result2 = await authenticator.GetAuthenticationTokenAsync();
 
         // then
