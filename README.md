@@ -2,7 +2,7 @@
 
 [![GitHub Actions Status](https://github.com/xshaheen/xdot-paymob/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/xshaheen/xdot-paymob/actions) [![xdot-paymob NuGet Package Downloads](https://img.shields.io/nuget/dt/Xdot.Paymob.CashIn)](https://www.nuget.org/packages/Xdot.Paymob.CashIn)
 
-An SDK for .NET to help you integrate with the Paymob’s payment gateway.
+.NET SDK to help you integrate with the Paymob’s payment gateway. to help you integrate with the Paymob’s payment gateway.
 
 **if you like this work, please consider give the project star 🌟**
 
