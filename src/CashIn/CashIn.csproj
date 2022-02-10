@@ -42,7 +42,7 @@
     <Compile Update="PaymobCashInAuthenticator.cs">
       <DependentUpon>IPaymobCashInAuthenticator.cs</DependentUpon>
     </Compile>
-    <Compile Update="PaymobCashInBrocker.Payment.cs">
+    <Compile Update="PaymobCashInBroker.Payment.cs">
       <DependentUpon>IPaymobCashInBroker.cs</DependentUpon>
     </Compile>
     <Compile Update="PaymobCashInBrocker.VoidTransaction.cs">
