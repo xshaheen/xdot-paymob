@@ -10,7 +10,7 @@ namespace X.Paymob.CashIn.Models.Callback;
 [PublicAPI]
 public class CashInCallback {
     /// <summary>See: <see cref="CashInCallbackTypes"/>.</summary>
-    [JsonPropertyName("json")]
+    [JsonPropertyName("type")]
     public string? Type { get; init; }
 
     /// <summary>
