@@ -20,7 +20,7 @@ public partial class PaymobCashInBroker {
         string authToken = await _authenticator.GetAuthenticationTokenAsync();
         var requestUrl = Url.Combine(_config.ApiBaseUrl, "ecommerce/orders");
         var internalRequest = new CashInCreateOrderInternalRequest(authToken, request);
-        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest, _IgnoreNullOptions);
+        using var response = await _httpClient.PostAsJsonAsync(requestUrl, internalRequest, _IgnoreNullOptions);
 
         if (!response.IsSuccessStatusCode) {
             await PaymobRequestException.ThrowAsync(response);

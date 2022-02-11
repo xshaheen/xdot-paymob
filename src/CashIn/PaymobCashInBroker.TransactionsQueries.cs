@@ -26,7 +26,7 @@ public partial class PaymobCashInBroker {
             },
         };
 
-        HttpResponseMessage response = await _httpClient.SendAsync(requestMessage);
+        using var response = await _httpClient.SendAsync(requestMessage);
 
         if (!response.IsSuccessStatusCode) {
             await PaymobRequestException.ThrowAsync(response);
@@ -47,7 +47,7 @@ public partial class PaymobCashInBroker {
             },
         };
 
-        HttpResponseMessage response = await _httpClient.SendAsync(request);
+        using var response = await _httpClient.SendAsync(request);
 
         if (!response.IsSuccessStatusCode) {
             await PaymobRequestException.ThrowAsync(response);

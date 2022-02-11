@@ -52,13 +52,9 @@ public class PaymobRequestException : Exception {
             body = null;
         }
 
-        response.Dispose();
+        var statusCode = ((int) response.StatusCode).ToString(CultureInfo.InvariantCulture);
+        var message = $"Paymob Cash In - Http request failed with status code ({statusCode}).";
 
-        var message = string.Format(
-            CultureInfo.InvariantCulture,
-            "Paymob Cash In - Http request failed with status code ({0}).",
-            (int) response.StatusCode
-        );
         throw new PaymobRequestException(message, response.StatusCode, body);
     }
 }

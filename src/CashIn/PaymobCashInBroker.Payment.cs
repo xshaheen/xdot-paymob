@@ -64,7 +64,7 @@ public partial class PaymobCashInBroker {
 
     private async Task<TResponse> _PayAsync<TResponse>(CashInPayRequest request) {
         var requestUrl = Url.Combine(_config.ApiBaseUrl, "acceptance/payments/pay");
-        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
+        using var response = await _httpClient.PostAsJsonAsync(requestUrl, request);
 
         if (!response.IsSuccessStatusCode) {
             await PaymobRequestException.ThrowAsync(response);

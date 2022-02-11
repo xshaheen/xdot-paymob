@@ -33,7 +33,7 @@ public class PaymobCashInAuthenticator : IPaymobCashInAuthenticator {
         var config = _options.CurrentValue;
         var requestUrl = Url.Combine(config.ApiBaseUrl, "auth/tokens");
         var request = new CashInAuthenticationTokenRequest { ApiKey = config.ApiKey };
-        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
+        using var response = await _httpClient.PostAsJsonAsync(requestUrl, request);
 
         if (!response.IsSuccessStatusCode) {
             await PaymobRequestException.ThrowAsync(response);
