@@ -66,7 +66,7 @@ class Build : NukeBuild {
                     .SetDataCollector("XPlat Code Coverage")
                     .EnableCollectCoverage()
                     .SetResultsDirectory(TestResults)
-                    .SetLoggers("console;verbosity=detailed", $"trx;LogFileName={project.Name}.trx", $"html;LogFileName={project.Name}.html")
+                    .SetLoggers("console;verbosity=detailed", $"html;LogFileName={project.Name}.html")
                 );
             });
         });
