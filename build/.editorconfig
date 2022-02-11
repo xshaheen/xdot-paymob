@@ -1,3 +1,7 @@
+[*]
+# CA1707: Identifiers should not contain underscores.
+dotnet_diagnostic.ca1707.severity = none
+
 [*.cs]
 dotnet_style_qualification_for_field = false:warning
 dotnet_style_qualification_for_property = false:warning

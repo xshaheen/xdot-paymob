@@ -56,7 +56,7 @@ class Build : NukeBuild {
         .Description("Runs unit tests and outputs test results to the artifacts directory.")
         .DependsOn(Compile)
         .Executes(() => {
-            Solution.GetProjects("*.Tests.Unit.*").ForEach(project => {
+            Solution.GetProjects("*.Tests.Unit").ForEach(project => {
                 DotNetTest(settings => settings
                     .SetProjectFile(project)
                     .SetConfiguration(Configuration)
