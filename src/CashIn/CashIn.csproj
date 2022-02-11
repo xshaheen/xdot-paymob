@@ -6,7 +6,7 @@
     <AssemblyName>Xdot.Paymob.CashIn</AssemblyName>
     <Title>Xdot.Paymob.CashIn</Title>
     <PackageId>Xdot.Paymob.CashIn</PackageId>
-    <Description>An SDK to help you integrate with the Paymob’s payment gateway.</Description>
+    <Description>SDK to help you integrate with the Paymob’s payment gateway.</Description>
     <PackageTags>xdot,paymob,accept,sdk,payment,cashin</PackageTags>
   </PropertyGroup>
 

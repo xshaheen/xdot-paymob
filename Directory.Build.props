@@ -27,11 +27,12 @@
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
-  <ItemGroup Label="Global packages">
+  <ItemGroup Label="Global Package References">
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="All" />
     <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Label="Global usings">
+  <ItemGroup Label="Global Usings">
     <Using Include="System.Globalization" />
   </ItemGroup>
 
