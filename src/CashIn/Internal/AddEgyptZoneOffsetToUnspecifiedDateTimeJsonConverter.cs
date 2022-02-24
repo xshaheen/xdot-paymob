@@ -4,11 +4,12 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TimeZoneConverter;
 
 namespace X.Paymob.CashIn.Internal;
 
 internal sealed class AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter : JsonConverter<DateTimeOffset> {
-    public static readonly TimeZoneInfo EgyptTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Egypt Standard Time");
+    public static readonly TimeZoneInfo EgyptTimeZone = TZConvert.GetTimeZoneInfo("Egypt Standard Time");
 
     public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
         DateTime dateTime = reader.GetDateTime();
