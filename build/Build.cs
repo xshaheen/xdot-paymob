@@ -76,6 +76,7 @@ class Build : NukeBuild {
         .DependsOn(Test)
         .Executes(() => {
             DotNetPack(settings => settings
+                .SetVerbosity(DotNetVerbosity.Normal)
                 .SetProject(Solution)
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
