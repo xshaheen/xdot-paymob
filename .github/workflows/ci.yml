@@ -40,7 +40,6 @@ jobs:
         uses: actions/setup-dotnet@v1.9.0
         with:
           dotnet-version: |
-            net461
             3.1.x
             5.0.x
             6.0.x
