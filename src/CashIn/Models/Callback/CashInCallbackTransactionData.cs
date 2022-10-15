@@ -80,9 +80,6 @@ public class CashInCallbackTransactionData {
     [JsonPropertyName("migs_result")]
     public string? MigsResult { get; init; }
 
-    [JsonPropertyName("batch_no")]
-    public int BatchNo { get; init; }
-
     [JsonPropertyName("order_info")]
     public string? OrderInfo { get; init; }
 
