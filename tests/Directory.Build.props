@@ -25,7 +25,7 @@
 
   <ItemGroup Label="Fix running Xunit tests when targeting .Net Framework on Unix">
     <!-- see: https://cake-contrib.github.io/Cake.Recipe/docs/known-issues/running-xunit-tests-on-net-framework -->
-    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.3.1" Condition="$(TargetFramework.StartsWith('net4')) AND '$(OS)' == 'Unix'" />
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.3.2" Condition="$(TargetFramework.StartsWith('net4')) AND '$(OS)' == 'Unix'" />
   </ItemGroup>
 
 </Project>
