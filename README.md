@@ -81,6 +81,8 @@ Here's the details of what the `IPaymobCashInBroker` has to offer:
 
 ### Simple Example
 
+- Create a payment
+
 ```c#
 public class CashInService
 {
@@ -115,6 +117,64 @@ public class CashInService
 
         // Create iframe src.
         return _broker.CreateIframeSrc(iframeId: "1234", token: paymentKeyResponse.PaymentKey);
+    }
+}
+```
+
+- Define the callback
+
+```c#
+private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web)
+{
+    NumberHandling = JsonNumberHandling.AllowReadingFromString,
+};
+
+[HttpPost("cashin-callback")]
+public ActionResult CashInCallback(
+    [FromQuery] string hmac,
+    [FromBody] CashInCallback callback,
+    IPaymobCashInBroker broker
+)
+{
+    if (callback.Type is null || callback.Obj is null)
+    {
+        throw new InvalidOperationException("Unexpected transaction callback.");
+    }
+
+    var content = ((JsonElement) callback.Obj).GetRawText();
+
+    switch (callback.Type.ToUpperInvariant())
+    {
+        case CashInCallbackTypes.Transaction:
+        {
+            var transaction = JsonSerializer.Deserialize<CashInCallbackTransaction>(content, SerializerOptions)!;
+            var valid = broker.Validate(transaction, hmac);
+
+            if (!valid)
+            {
+                return BadRequest();
+            }
+
+            // TODO: Handle transaction.
+
+            return Ok();
+        }
+        case CashInCallbackTypes.Token:
+        {
+            var token = JsonSerializer.Deserialize<CashInCallbackToken>(content, SerializerOptions)!;
+            var valid = broker.Validate(token, hmac);
+
+            if (!valid)
+            {
+                return BadRequest();
+            }
+
+            // TODO: Handle token.
+
+            return Ok();
+        }
+        default:
+            throw new InvalidOperationException($"Unexpected {nameof(CashInCallbackTypes)} = {callback.Type}");
     }
 }
 ```
