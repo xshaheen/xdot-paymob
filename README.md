@@ -46,8 +46,8 @@ the Paymob API),
 
 ```c#
 services.AddPaymobCashIn(config => {
-    config.ApiKey = "Api Key";
-    config.Hmac = "Hmac secret",
+    config.ApiKey = "Api Key for your Paymob’s accont";
+    config.Hmac = "Hmac secret for your Paymob’s accont",
 });
 
 // Alert: ApiKey and Hmac is a sensitive settings make sure to store them into
@@ -105,10 +105,10 @@ public class CashInService
             firstName: "Mahmoud",
             lastName: "Shaheen",
             phoneNumber: "010000000",
-            email: "mxshaheen@gmail.com");
+            email: "someone@gmail.com");
 
         var paymentKeyRequest = new CashInPaymentKeyRequest(
-            integrationId: 123,
+            integrationId: 123, // change this
             orderId: orderResponse.Id,
             billingData: billingData,
             amountCents: amountCents);
