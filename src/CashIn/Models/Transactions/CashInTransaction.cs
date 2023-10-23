@@ -28,10 +28,12 @@ public class CashInTransaction {
 
     /// <summary>"N/A" or decimal number</summary>
     [JsonPropertyName("fees")]
+    [JsonConverter(typeof(AddNullableAmountConverter))]
     public string Fees { get; init; } = "0.0";
 
     /// <summary>"N/A" or decimal number</summary>
     [JsonPropertyName("vat")]
+    [JsonConverter(typeof(AddNullableAmountConverter))]
     public string Vat { get; init; } = "0.0";
 
     [JsonPropertyName("created_at")]
