@@ -46,7 +46,7 @@ public class AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverterTests {
         json.Should().Be(expected);
     }
 
-    private class Target {
+    private sealed class Target {
         [JsonConverter(typeof(AddEgyptZoneOffsetToUnspecifiedDateTimeJsonConverter))]
         public DateTimeOffset Timestamp { get; init; }
     }
